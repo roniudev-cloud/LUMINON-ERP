@@ -1,0 +1,214 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* LUMINON ERP Brand Theme - Light Mode */
+:root {
+  --background: oklch(0.985 0.002 247);     /* #F8FAFC */
+  --foreground: oklch(0.145 0.005 285);     /* #111827 dark text */
+  --card: oklch(1 0 0);                     /* #FFFFFF */
+  --card-foreground: oklch(0.145 0.005 285);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0.005 285);
+  --primary: #8B1E1E;                       /* #8B1E1E - LUMINON Red */
+  --primary-foreground: #FFFFFF;            /* White text on primary */
+  --secondary: oklch(0.97 0.002 247);       /* Light gray */
+  --secondary-foreground: oklch(0.205 0.005 285);
+  --muted: oklch(0.97 0.002 247);
+  --muted-foreground: oklch(0.556 0.01 260);  /* #6B7280 */
+  --accent: oklch(0.97 0.002 247);
+  --accent-foreground: oklch(0.205 0.005 285);
+  --destructive: oklch(0.577 0.245 27.325); /* #DC2626 */
+  --success: oklch(0.55 0.17 145);          /* #16A34A */
+  --success-foreground: oklch(0.985 0 0);
+  --warning: oklch(0.75 0.15 75);           /* #F59E0B */
+  --warning-foreground: oklch(0.145 0.005 285);
+  --border: oklch(0.922 0.004 247);         /* #E5E7EB */
+  --input: oklch(0.922 0.004 247);
+  --ring: #8B1E1E;                          /* Same as primary */
+  --chart-1: #8B1E1E;                       /* Primary red */
+  --chart-2: oklch(0.55 0.17 145);          /* Success green */
+  --chart-3: oklch(0.75 0.15 75);           /* Warning amber */
+  --chart-4: oklch(0.55 0.15 260);          /* Blue */
+  --chart-5: oklch(0.60 0.15 310);          /* Purple */
+  --radius: 0.625rem;
+  /* Sidebar - Dark theme sidebar */
+  --sidebar: oklch(0.17 0.005 285);         /* #111827 dark sidebar */
+  --sidebar-foreground: oklch(0.92 0.005 247);
+  --sidebar-primary: #8B1E1E;               /* LUMINON red for sidebar */
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: oklch(0.22 0.005 285);
+  --sidebar-accent-foreground: oklch(0.92 0.005 247);
+  --sidebar-border: oklch(0.25 0.005 285);
+  --sidebar-ring: #8B1E1E;
+}
+
+/* Dark Mode */
+.dark {
+  --background: oklch(0.145 0.005 285);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0.005 285);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0.005 285);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: #8B1E1E;
+  --primary-foreground: #FFFFFF;
+  --secondary: oklch(0.269 0.005 285);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0.005 285);
+  --muted-foreground: oklch(0.708 0.01 260);
+  --accent: oklch(0.269 0.005 285);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --success: oklch(0.65 0.17 145);
+  --success-foreground: oklch(0.985 0 0);
+  --warning: oklch(0.80 0.15 75);
+  --warning-foreground: oklch(0.145 0.005 285);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: #8B1E1E;
+  --chart-1: #8B1E1E;
+  --chart-2: oklch(0.65 0.17 145);
+  --chart-3: oklch(0.80 0.15 75);
+  --chart-4: oklch(0.65 0.15 260);
+  --chart-5: oklch(0.70 0.15 310);
+  --sidebar: oklch(0.145 0.005 285);
+  --sidebar-foreground: oklch(0.92 0.005 247);
+  --sidebar-primary: #8B1E1E;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: oklch(0.205 0.005 285);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: #8B1E1E;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans scroll-smooth;
+  }
+}
+
+@media print {
+  /* Hide sidebars, headers, mobile navigations, buttons, comboboxes, and any elements explicitly marked as hidden on print */
+  aside,
+  header,
+  nav,
+  button,
+  .print-hidden,
+  .no-print,
+  [role="tablist"],
+  [data-sidebar],
+  .sidebar-trigger,
+  button[role="combobox"] {
+    display: none !important;
+  }
+
+  /* Reset layout wrappers to permit vertical scroll and pagination on print */
+  html,
+  body,
+  main,
+  #root,
+  div[class*="lg:ml-"],
+  div.h-screen,
+  div.overflow-hidden,
+  div.flex-1 {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    position: static !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    float: none !important;
+  }
+
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Remove padding/margin left offset introduced by desktop sidebar spacing */
+  .lg\:ml-\[260px\],
+  .lg\:ml-\[70px\],
+  .lg\:pl-\[260px\],
+  .lg\:pl-\[70px\],
+  .pl-64,
+  .pl-20 {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  /* Ensure printed tables and text columns take up the entire print canvas */
+  .print-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Force browsers to print exact background colors and image borders */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

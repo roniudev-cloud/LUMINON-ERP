@@ -1,0 +1,85 @@
+Total source files found: 264
+
+--- UNUSED FILES (Not referenced by any other file) ---
+src/components/common/DateText.tsx
+src/components/common/ErrorState.tsx
+src/components/common/FormDrawer.tsx
+src/components/common/LoadingState.tsx
+src/components/common/MoneyText.tsx
+src/components/common/PageToolbar.tsx
+src/components/ui/command.tsx
+src/features/dashboard/project-status-chart.tsx
+src/features/settings/client-users-table.tsx
+src/lib/services/docx-export.ts
+src/lib/services/pdf-export.ts
+
+--- FILES CONTAINING console.log ---
+src/app/api/migrate-db/route.ts
+src/app/api/seed/route.ts
+
+--- POTENTIAL PLACEHOLDERS OR MOCK DATA FILES ---
+src/app/(auth)/login/page.tsx (placeholder)
+src/app/(erp)/calendar/page.tsx (placeholder, mock)
+src/app/(erp)/document-templates/new/page.tsx (placeholder)
+src/app/(erp)/inventory/overview/page.tsx (placeholder)
+src/app/(erp)/profile/edit/page.tsx (placeholder)
+src/app/(erp)/profile/notifications/page.tsx (placeholder)
+src/app/(erp)/profile/page.tsx (mock)
+src/app/(erp)/profile/preferences/page.tsx (placeholder)
+src/app/(erp)/projects/page.tsx (placeholder)
+src/app/(erp)/settings/audit-logs/page.tsx (placeholder)
+src/app/(erp)/settings/backups/page.tsx (placeholder)
+src/app/(erp)/settings/company/page.tsx (placeholder)
+src/app/(erp)/settings/finance/page.tsx (placeholder)
+src/app/(erp)/settings/notifications/page.tsx (placeholder)
+src/app/(erp)/settings/projects/page.tsx (placeholder)
+src/app/(erp)/settings/security/page.tsx (placeholder)
+src/app/(erp)/settings/users/page.tsx (placeholder)
+src/app/api/webhooks/facebook/route.ts (placeholder)
+src/components/common/PageToolbar.tsx (placeholder)
+src/components/data-table/data-table-pagination.tsx (placeholder)
+src/components/data-table/data-table-toolbar.tsx (placeholder)
+src/components/data-table/data-table.tsx (placeholder)
+src/components/forms/date-picker.tsx (placeholder)
+src/components/layout/header.tsx (placeholder)
+src/components/ui/input.tsx (placeholder)
+src/components/ui/select.tsx (placeholder)
+src/components/ui/textarea.tsx (placeholder)
+src/features/contracts/client-contracts-table.tsx (placeholder)
+src/features/contracts/contract-form.tsx (placeholder)
+src/features/customers/activity-form.tsx (placeholder)
+src/features/customers/client-customer-table.tsx (placeholder)
+src/features/customers/customer-form.tsx (placeholder)
+src/features/dashboard/universal-dashboard.tsx (mock)
+src/features/finance/client-debts-table.tsx (placeholder)
+src/features/finance/client-payments-table.tsx (placeholder)
+src/features/finance/client-receipts-table.tsx (placeholder)
+src/features/finance/payment-form.tsx (placeholder)
+src/features/finance/receipt-form.tsx (placeholder)
+src/features/finance/vat-invoice-form-dialog.tsx (placeholder)
+src/features/inventory/client-materials-table.tsx (placeholder)
+src/features/inventory/client-movements-table.tsx (placeholder)
+src/features/inventory/client-stock-tickets-table.tsx (placeholder)
+src/features/inventory/client-suppliers-table.tsx (placeholder)
+src/features/inventory/material-form.tsx (placeholder)
+src/features/inventory/stock-ticket-form.tsx (placeholder)
+src/features/leads/client-lead-table.tsx (placeholder)
+src/features/leads/lead-form-dialog.tsx (placeholder)
+src/features/omnichannel/inbox-client.tsx (placeholder)
+src/features/online-orders/client-orders-table.tsx (placeholder)
+src/features/online-orders/order-form.tsx (placeholder)
+src/features/products/client-products-table.tsx (placeholder)
+src/features/products/product-form.tsx (placeholder)
+src/features/products/product-variants-manager.tsx (placeholder)
+src/features/projects/client-projects-table.tsx (placeholder)
+src/features/projects/project-form.tsx (placeholder)
+src/features/projects/project-logs-tab.tsx (placeholder)
+src/features/projects/project-overview-tab.tsx (placeholder)
+src/features/projects/project-tasks-tab.tsx (placeholder)
+src/features/quotations/client-quotations-table.tsx (placeholder)
+src/features/quotations/quotation-form.tsx (placeholder)
+src/features/reminders/reminder-form-dialog.tsx (placeholder)
+src/features/settings/client-users-table.tsx (placeholder)
+src/features/tasks/task-form-dialog.tsx (placeholder)
+src/features/workers/worker-form-dialog.tsx (placeholder)
+src/lib/services/notifications.ts (placeholder)
