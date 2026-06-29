@@ -76,7 +76,7 @@ export async function updateCustomerDebtStatus(id: string, status: string, paidA
   const updates: any = { status, updatedAt: sql`now()` };
   if (paidAmount !== undefined) {
     updates.paidAmount = paidAmount;
-    updates.remainingAmount = sql`${existing.totalAmount} - ${paidAmount}`;
+    updates.remainingAmount = String(Number(existing.totalAmount) - Number(paidAmount));
     updates.lastPaymentDate = sql`now()`;
   }
 
@@ -96,7 +96,7 @@ export async function updateCustomerDebtStatus(id: string, status: string, paidA
     newData: updated,
   });
 
-  revalidatePath("/customer-debts");
+  revalidatePath("/debts");
   return updated;
 }
 
@@ -167,7 +167,7 @@ export async function updateSupplierDebtStatus(id: string, status: string, paidA
   const updates: any = { status, updatedAt: sql`now()` };
   if (paidAmount !== undefined) {
     updates.paidAmount = paidAmount;
-    updates.remainingAmount = sql`${existing.totalAmount} - ${paidAmount}`;
+    updates.remainingAmount = String(Number(existing.totalAmount) - Number(paidAmount));
   }
 
   const [updated] = await db
@@ -186,6 +186,6 @@ export async function updateSupplierDebtStatus(id: string, status: string, paidA
     newData: updated,
   });
 
-  revalidatePath("/supplier-debts");
+  revalidatePath("/debts");
   return updated;
 }
