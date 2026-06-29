@@ -338,3 +338,26 @@ export const getPayment = cache(async function getPayment(id: string) {
   if (!data) throw new Error("Không tìm thấy phiếu chi");
   return data;
 });
+
+// --- Cascade lookups: lấy HĐ / CT theo khách hàng ---
+
+export async function getContractsByCustomer(customerId: string) {
+  await requireAuth();
+  const data = await db.query.contracts.findMany({
+    where: eq(contracts.customerId, customerId),
+    columns: { id: true, code: true },
+    orderBy: [desc(contracts.createdAt)],
+  });
+  return data;
+}
+
+export async function getProjectsByCustomer(customerId: string) {
+  const { projects } = await import("@db/schema/projects");
+  await requireAuth();
+  const data = await db.query.projects.findMany({
+    where: eq(projects.customerId, customerId),
+    columns: { id: true, name: true, code: true },
+    orderBy: [desc(projects.createdAt)],
+  });
+  return data;
+}

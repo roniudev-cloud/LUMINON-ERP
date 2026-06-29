@@ -1,11 +1,12 @@
 "use client";
 
-import { useTransition, useRef, useEffect } from "react";
+import { useTransition, useRef, useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { receiptSchema, type ReceiptFormValues } from "@/lib/validations/finance";
 import { createReceipt } from "@/actions/finance";
+import { getContractsByCustomer, getProjectsByCustomer } from "@/actions/finance";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -24,10 +25,15 @@ interface ReceiptFormProps {
   onCancel?: () => void;
 }
 
-export function ReceiptForm({ customers, projects, contracts, onSuccess, onCancel }: ReceiptFormProps) {
+export function ReceiptForm({ customers, projects: allProjects, contracts: allContracts, onSuccess, onCancel }: ReceiptFormProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Cascade state: filtered lists based on selected customer
+  const [filteredContracts, setFilteredContracts] = useState<{ id: string; code: string; totalValue?: any }[]>(allContracts);
+  const [filteredProjects, setFilteredProjects] = useState<{ id: string; name: string; code: string }[]>(allProjects);
+  const [isLoadingLookups, setIsLoadingLookups] = useState(false);
 
   const defaultValues: Partial<ReceiptFormValues> = {
     date: "",
@@ -49,6 +55,36 @@ export function ReceiptForm({ customers, projects, contracts, onSuccess, onCance
       form.setValue("date", new Date().toISOString().split("T")[0]);
     }
   }, [form]);
+
+  // When customer changes → load matching contracts & projects
+  const handleCustomerChange = useCallback(async (customerId: string) => {
+    // Reset dependent fields
+    form.setValue("contractId", "");
+    form.setValue("projectId", "");
+
+    if (!customerId) {
+      // No customer selected → show all
+      setFilteredContracts(allContracts);
+      setFilteredProjects(allProjects);
+      return;
+    }
+
+    setIsLoadingLookups(true);
+    try {
+      const [customerContracts, customerProjects] = await Promise.all([
+        getContractsByCustomer(customerId),
+        getProjectsByCustomer(customerId),
+      ]);
+      setFilteredContracts(customerContracts);
+      setFilteredProjects(customerProjects);
+    } catch {
+      // Fallback: show all if lookup fails
+      setFilteredContracts(allContracts);
+      setFilteredProjects(allProjects);
+    } finally {
+      setIsLoadingLookups(false);
+    }
+  }, [allContracts, allProjects, form]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -99,15 +135,61 @@ export function ReceiptForm({ customers, projects, contracts, onSuccess, onCance
             )} />
 
             <FormField control={form.control} name="customerId" render={({ field }: { field: any }) => (
-              <FormItem className="sm:col-span-2"><FormLabel>Khách hàng (Bắt buộc)</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder="Chọn khách hàng" /></SelectTrigger></FormControl><SelectContent>{customers.map((c) => (<SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>))}</SelectContent></Select><FormMessage /></FormItem>
+              <FormItem className="md:col-span-2">
+                <FormLabel>Khách hàng (Bắt buộc)</FormLabel>
+                <Select
+                  onValueChange={(val) => {
+                    field.onChange(val);
+                    handleCustomerChange(val);
+                    // Auto-fill submitter name
+                    const customer = customers.find(c => c.id === val);
+                    if (customer && !form.getValues("submitterName")) {
+                      form.setValue("submitterName", customer.name);
+                    }
+                  }}
+                  defaultValue={field.value}
+                >
+                  <FormControl><SelectTrigger><SelectValue placeholder="Chọn khách hàng — Hợp đồng & Công trình sẽ tự lọc theo" /></SelectTrigger></FormControl>
+                  <SelectContent>
+                    {customers.map((c) => (<SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
             )} />
 
             <FormField control={form.control} name="contractId" render={({ field }: { field: any }) => (
-              <FormItem><FormLabel>Hợp đồng tham chiếu</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value || ""}><FormControl><SelectTrigger><SelectValue placeholder="Chọn hợp đồng" /></SelectTrigger></FormControl><SelectContent><SelectItem value="">Không có</SelectItem>{contracts.map((c) => (<SelectItem key={c.id} value={c.id}>{c.code}</SelectItem>))}</SelectContent></Select><FormMessage /></FormItem>
+              <FormItem>
+                <FormLabel>
+                  Hợp đồng tham chiếu
+                  {isLoadingLookups && <Loader2 className="inline ml-2 h-3 w-3 animate-spin" />}
+                </FormLabel>
+                <Select onValueChange={field.onChange} value={field.value || ""} disabled={isLoadingLookups}>
+                  <FormControl><SelectTrigger><SelectValue placeholder={filteredContracts.length === 0 ? "Không có hợp đồng" : "Chọn hợp đồng"} /></SelectTrigger></FormControl>
+                  <SelectContent>
+                    <SelectItem value="">Không có</SelectItem>
+                    {filteredContracts.map((c) => (<SelectItem key={c.id} value={c.id}>{c.code}</SelectItem>))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
             )} />
 
             <FormField control={form.control} name="projectId" render={({ field }: { field: any }) => (
-              <FormItem><FormLabel>Công trình tham chiếu</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value || ""}><FormControl><SelectTrigger><SelectValue placeholder="Chọn công trình" /></SelectTrigger></FormControl><SelectContent><SelectItem value="">Không có</SelectItem>{projects.map((c) => (<SelectItem key={c.id} value={c.id}>[{c.code}] {c.name}</SelectItem>))}</SelectContent></Select><FormMessage /></FormItem>
+              <FormItem>
+                <FormLabel>
+                  Công trình tham chiếu
+                  {isLoadingLookups && <Loader2 className="inline ml-2 h-3 w-3 animate-spin" />}
+                </FormLabel>
+                <Select onValueChange={field.onChange} value={field.value || ""} disabled={isLoadingLookups}>
+                  <FormControl><SelectTrigger><SelectValue placeholder={filteredProjects.length === 0 ? "Không có công trình" : "Chọn công trình"} /></SelectTrigger></FormControl>
+                  <SelectContent>
+                    <SelectItem value="">Không có</SelectItem>
+                    {filteredProjects.map((c) => (<SelectItem key={c.id} value={c.id}>[{c.code}] {c.name}</SelectItem>))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
             )} />
           </div>
         </FormSection>
@@ -137,7 +219,7 @@ export function ReceiptForm({ customers, projects, contracts, onSuccess, onCance
             )} />
 
             <FormField control={form.control} name="amount" render={({ field }: { field: any }) => (
-              <FormItem className="sm:col-span-2">
+              <FormItem className="md:col-span-2">
                 <FormLabel>Số tiền thu (VNĐ)</FormLabel>
                 <FormControl>
                   <div className="relative">
@@ -152,10 +234,10 @@ export function ReceiptForm({ customers, projects, contracts, onSuccess, onCance
             )} />
 
             <FormField control={form.control} name="description" render={({ field }: { field: any }) => (
-              <FormItem className="sm:col-span-2"><FormLabel>Nội dung thu / Ghi chú</FormLabel><FormControl><Textarea className="h-20" placeholder="Lý do thu tiền..." {...field} value={field.value || ""} /></FormControl><FormMessage /></FormItem>
+              <FormItem className="md:col-span-2"><FormLabel>Nội dung thu / Ghi chú</FormLabel><FormControl><Textarea className="h-20" placeholder="Lý do thu tiền..." {...field} value={field.value || ""} /></FormControl><FormMessage /></FormItem>
             )} />
 
-            <div className="sm:col-span-2 pt-4">
+            <div className="md:col-span-2 pt-4">
               <label className="text-sm font-medium mb-2 block">Chứng từ đính kèm ({files.length} file)</label>
               <div className="flex gap-4 items-center">
                 <Button type="button" variant="outline" onClick={() => fileInputRef.current?.click()}>
