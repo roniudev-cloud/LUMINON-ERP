@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 };
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 60; // Tăng timeout cho Vercel để không bị đứt gánh giữa chừng khi streaming data
 
 export default function DashboardPage() {
   // Fire and forget background tasks
