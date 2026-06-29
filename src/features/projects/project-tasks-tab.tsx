@@ -89,7 +89,7 @@ export function ProjectTasksTab({ project, tasks, users }: { project: any; tasks
                 <label className="text-sm font-medium">Tên công việc</label>
                 <Input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} placeholder="VD: Lắp đặt đường ống nước" />
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Giao cho</label>
                   <Select value={formData.assignedToId} onValueChange={v => setFormData({...formData, assignedToId: v})}>
@@ -133,7 +133,7 @@ export function ProjectTasksTab({ project, tasks, users }: { project: any; tasks
         </Dialog>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <div className="border rounded-xl p-4 bg-card flex items-center gap-4">
           <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg text-blue-600"><Clock className="h-5 w-5" /></div>
           <div>

@@ -74,7 +74,7 @@ export function LiquidationReportDialog() {
       <DialogTrigger asChild>
         <Button><Plus className="mr-2 h-4 w-4" /> Lập biên bản thanh lý</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Lập biên bản thanh lý</DialogTitle>
           <DialogDescription>Sinh biên bản thanh lý hợp đồng/công trình, ký điện tử sau khi tạo.</DialogDescription>

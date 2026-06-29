@@ -53,7 +53,7 @@ export function ProjectLogsTab({ project, logs }: { project: any; logs: any[] })
               <DialogTitle>Thêm nhật ký mới</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4 py-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Ngày</label>
                   <Input type="date" required value={formData.date} onChange={e => setFormData({...formData, date: e.target.value})} />
@@ -80,7 +80,7 @@ export function ProjectLogsTab({ project, logs }: { project: any; logs: any[] })
                 <label className="text-sm font-medium">Nội dung / Công việc đã làm</label>
                 <Textarea required value={formData.content} onChange={e => setFormData({...formData, content: e.target.value})} className="h-20" />
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t pt-4 mt-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t pt-4 mt-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-orange-600">Vấn đề phát sinh (Nếu có)</label>
                   <Textarea value={formData.issues} onChange={e => setFormData({...formData, issues: e.target.value})} />
@@ -126,7 +126,7 @@ export function ProjectLogsTab({ project, logs }: { project: any; logs: any[] })
               <div className="text-sm whitespace-pre-wrap">{log.content}</div>
 
               {(log.issues || log.proposal) && (
-                <div className="mt-4 pt-3 border-t grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm bg-orange-50/50 p-3 rounded-lg dark:bg-orange-950/20">
+                <div className="mt-4 pt-3 border-t grid grid-cols-1 md:grid-cols-2 gap-4 text-sm bg-orange-50/50 p-3 rounded-lg dark:bg-orange-950/20">
                   {log.issues && (
                     <div>
                       <span className="font-semibold text-orange-700 dark:text-orange-400">Vấn đề: </span>

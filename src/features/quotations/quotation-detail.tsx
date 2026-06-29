@@ -124,7 +124,7 @@ export function QuotationDetail({ quotation, canEdit, canConvert }: { quotation:
           <CardHeader>
             <CardTitle>Hạng mục báo giá</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -234,7 +234,7 @@ export function QuotationDetail({ quotation, canEdit, canConvert }: { quotation:
         </div>
 
         {/* Thông tin Khách hàng */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
           <div className="space-y-1">
             <h3 className="font-bold text-gray-700 uppercase text-[10px] tracking-wider">Thông tin chủ đầu tư (Bên A):</h3>
             <p><span className="font-semibold text-gray-600">Tên đơn vị/Khách hàng:</span> {quotation.customer.name}</p>
@@ -331,7 +331,7 @@ export function QuotationDetail({ quotation, canEdit, canConvert }: { quotation:
         )}
 
         {/* Ký tên các bên */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 text-center pt-8 gap-6 sm:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 text-center pt-8 gap-6 sm:gap-10">
           <div className="space-y-16">
             <div>
               <p className="font-bold text-gray-700 text-xs uppercase tracking-wider">ĐẠI DIỆN KHÁCH HÀNG (BÊN A)</p>

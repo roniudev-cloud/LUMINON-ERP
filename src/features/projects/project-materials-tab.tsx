@@ -24,7 +24,7 @@ export function ProjectMaterialsTab({ usage }: { usage: MaterialUsage[] }) {
 
   return (
     <div className="space-y-3">
-      <div className="border rounded-xl overflow-hidden">
+      <div className="border rounded-xl overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow>

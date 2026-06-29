@@ -89,7 +89,7 @@ export function ReceiptForm({ customers, projects, contracts, onSuccess, onCance
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormSection title="Thông tin chung" description="Nhập thông tin người nộp và tham chiếu.">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-2">
             <FormField control={form.control} name="date" render={({ field }: { field: any }) => (
               <FormItem><FormLabel>Ngày thu</FormLabel><FormControl><Input type="date" {...field} /></FormControl><FormMessage /></FormItem>
             )} />
@@ -113,7 +113,7 @@ export function ReceiptForm({ customers, projects, contracts, onSuccess, onCance
         </FormSection>
 
         <FormSection title="Chi tiết khoản thu" description="Nhập số tiền và hình thức thanh toán.">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-2">
             <FormField control={form.control} name="type" render={({ field }: { field: any }) => (
               <FormItem><FormLabel>Loại thu</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue /></SelectTrigger></FormControl><SelectContent>
                 <SelectItem value="deposit">Cọc</SelectItem>

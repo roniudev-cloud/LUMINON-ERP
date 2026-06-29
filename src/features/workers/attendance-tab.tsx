@@ -135,7 +135,7 @@ export function AttendanceTab({ workerId, attendances, projects }: { workerId: s
       {attendances.length === 0 ? (
         <p className="text-sm text-muted-foreground text-center py-8">Chưa có dữ liệu chấm công.</p>
       ) : (
-        <div className="border rounded-xl overflow-hidden">
+        <div className="border rounded-xl overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>

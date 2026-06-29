@@ -64,7 +64,7 @@ export function AcceptanceReportDialog() {
       <DialogTrigger asChild>
         <Button><Plus className="mr-2 h-4 w-4" /> Lập biên bản nghiệm thu</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Lập biên bản nghiệm thu</DialogTitle>
           <DialogDescription>Sinh biên bản nghiệm thu từ công trình, ký điện tử sau khi tạo.</DialogDescription>

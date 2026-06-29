@@ -137,7 +137,7 @@ export function VatInvoiceDialog({ open, onOpenChange, invoice }: VatInvoiceDial
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormSection title="Thông tin cơ bản" description="Mã hóa đơn và loại hóa đơn.">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="code"
@@ -166,7 +166,7 @@ export function VatInvoiceDialog({ open, onOpenChange, invoice }: VatInvoiceDial
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <FormField
                   control={form.control}
                   name="type"
@@ -247,7 +247,7 @@ export function VatInvoiceDialog({ open, onOpenChange, invoice }: VatInvoiceDial
             </FormSection>
 
             <FormSection title="Giá trị thanh toán" description="Số tiền trước thuế, thuế suất và tổng tiền.">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="amount"
@@ -284,7 +284,7 @@ export function VatInvoiceDialog({ open, onOpenChange, invoice }: VatInvoiceDial
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <FormField
                   control={form.control}
                   name="vatAmount"

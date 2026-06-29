@@ -91,7 +91,7 @@ export function PaymentDetail({ payment }: PaymentDetailProps) {
               <CardDescription>Chi tiết giao dịch chi tiền từ doanh nghiệp</CardDescription>
             </CardHeader>
             <CardContent className="pt-6 space-y-4 text-sm">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <p className="text-muted-foreground text-xs flex items-center gap-1"><User className="w-3.5 h-3.5" /> Người nhận tiền</p>
                   <p className="font-semibold text-foreground">{payment.receiverName || payment.supplierName || "—"}</p>

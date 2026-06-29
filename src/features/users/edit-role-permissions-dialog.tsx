@@ -97,7 +97,7 @@ export function EditRolePermissionsDialog({ open, onOpenChange, roleId, roleName
                       Chọn tất cả
                     </label>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {group.items.map((item) => (
                       <label key={item.id} className="flex items-center gap-2 text-sm cursor-pointer">
                         <Checkbox checked={selected.has(item.id)} onCheckedChange={() => toggle(item.id)} />

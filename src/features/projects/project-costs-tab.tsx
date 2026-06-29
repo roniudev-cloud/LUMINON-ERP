@@ -133,7 +133,7 @@ export function ProjectCostsTab({ projectId, costs, suppliers }: ProjectCostsTab
       {costs.length === 0 ? (
         <p className="text-sm text-muted-foreground text-center py-8">Chưa có chi phí nào được ghi nhận cho công trình này.</p>
       ) : (
-        <div className="border rounded-xl overflow-hidden">
+        <div className="border rounded-xl overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>

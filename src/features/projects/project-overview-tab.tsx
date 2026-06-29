@@ -54,7 +54,7 @@ export function ProjectOverviewTab({ project, canEdit, canViewFinance, onSwitchT
           <CardTitle>Thông tin chung</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4 text-sm">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <p className="text-muted-foreground mb-1">Tên công trình</p>
               <p className="font-medium text-lg">{project.name}</p>
@@ -122,7 +122,7 @@ export function ProjectOverviewTab({ project, canEdit, canViewFinance, onSwitchT
         </CardHeader>
         <CardContent>
           {project.workers?.length > 0 ? (
-            <div className="grid sm:grid-cols-2 gap-2">
+            <div className="grid md:grid-cols-2 gap-2">
               {project.workers.map((a: any) => (
                 <Link
                   key={a.workerId}

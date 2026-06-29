@@ -96,7 +96,7 @@ export function LeadFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>
             {initialData ? "Cập nhật Lead" : "Thêm mới Lead"}
@@ -119,7 +119,7 @@ export function LeadFormDialog({
             )}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="phone">Số điện thoại</Label>
               <Input id="phone" {...form.register("phone")} />
@@ -130,7 +130,7 @@ export function LeadFormDialog({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="sourceId">Nguồn</Label>
               <Select

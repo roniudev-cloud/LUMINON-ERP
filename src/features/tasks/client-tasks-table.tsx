@@ -21,6 +21,7 @@ import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 import { TaskDialog } from "./task-form-dialog";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
+import { MobileEntityCard, MobileEntityCardList } from "@/components/shared/mobile-entity-card";
 import { deleteTask } from "@/actions/tasks";
 import { toast } from "sonner";
 import { DataTablePagination } from "@/components/data-table/data-table-pagination";
@@ -69,7 +70,7 @@ export function ClientTasksTable({ data }: { data: any[] }) {
         <Button onClick={handleCreate}>+ Thêm công việc</Button>
       </div>
       
-      <div className="overflow-x-auto">
+      <div className="hidden md:block overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow>
@@ -131,6 +132,46 @@ export function ClientTasksTable({ data }: { data: any[] }) {
           </TableBody>
         </Table>
       </div>
+
+      <MobileEntityCardList empty={data.length === 0}>
+        {data.map((task) => (
+          <MobileEntityCard
+            key={task.id}
+            title={task.title}
+            subtitle={task.assignedUser?.fullName || "—"}
+            actions={
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="h-8 w-8 p-0" onClick={(e) => e.stopPropagation()}>
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => handleEdit(task)}>
+                    <Pencil className="mr-2 h-4 w-4" /> Cập nhật
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleDelete(task)} className="text-destructive focus:bg-destructive/10">
+                    <Trash2 className="mr-2 h-4 w-4" /> Xóa
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            }
+            fields={[
+              { label: "Độ ưu tiên", value: <StatusBadge status={task.priority} /> },
+              { label: "Trạng thái", value: <StatusBadge status={task.status} /> },
+              {
+                label: "Tiến độ",
+                value: (
+                  <div className="w-full bg-slate-200 rounded-full h-2.5 max-w-[100px]">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${task.progress}%` }}></div>
+                  </div>
+                ),
+              },
+              { label: "Ngày hết hạn", value: task.dueDate ? format(new Date(task.dueDate), "dd/MM/yyyy", { locale: vi }) : "—" },
+            ]}
+          />
+        ))}
+      </MobileEntityCardList>
 
       <TaskDialog
         open={isDialogOpen}

@@ -88,7 +88,7 @@ export function PaymentForm({ projects, suppliers = [], onSuccess, onCancel }: P
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormSection title="Thông tin chung" description="Nhập thông tin người nhận và tham chiếu công trình.">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-2">
             <FormField control={form.control} name="date" render={({ field }: { field: any }) => (
               <FormItem><FormLabel>Ngày chi</FormLabel><FormControl><Input type="date" {...field} /></FormControl><FormMessage /></FormItem>
             )} />
@@ -129,7 +129,7 @@ export function PaymentForm({ projects, suppliers = [], onSuccess, onCancel }: P
         </FormSection>
 
         <FormSection title="Chi tiết khoản chi" description="Nhập số tiền và hạng mục chi phí.">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-2">
             <FormField control={form.control} name="category" render={({ field }: { field: any }) => (
               <FormItem><FormLabel>Hạng mục chi phí</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue /></SelectTrigger></FormControl><SelectContent>
                 <SelectItem value="material">Vật tư</SelectItem>

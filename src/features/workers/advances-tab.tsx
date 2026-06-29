@@ -97,7 +97,7 @@ export function AdvancesTab({ workerId, advances }: { workerId: string; advances
       {advances.length === 0 ? (
         <p className="text-sm text-muted-foreground text-center py-8">Chưa có bản ghi ứng lương.</p>
       ) : (
-        <div className="border rounded-xl overflow-hidden">
+        <div className="border rounded-xl overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>

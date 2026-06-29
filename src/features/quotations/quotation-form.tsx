@@ -137,7 +137,7 @@ return (
         title="Thông tin chung"
         description="Khách hàng và tiêu đề báo giá."
       >
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2">
           <FormField
             control={form.control}
             name="title"
@@ -336,7 +336,7 @@ return (
         title="Tổng kết"
         description="Cập nhật chiết khấu và thuế."
       >
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2">
           <FormField
             control={form.control}
             name="discountType"

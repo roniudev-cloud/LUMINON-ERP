@@ -95,7 +95,7 @@ export function CustomerForm({
           title="Thông tin cơ bản"
           description="Thông tin liên lạc chính của khách hàng."
         >
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="name">
                 Tên khách hàng <span className="text-destructive">*</span>
@@ -185,7 +185,7 @@ export function CustomerForm({
           title="Thông tin bổ sung"
           description="Địa chỉ, mã số thuế và các thông tin khác."
         >
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="address">Địa chỉ</Label>
               <Input
@@ -237,7 +237,7 @@ export function CustomerForm({
           title="Quản lý"
           description="Phân loại và phân công người phụ trách."
         >
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="statusId">Trạng thái</Label>
               <Select

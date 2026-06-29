@@ -150,7 +150,7 @@ export function TaskDialog({ open, onOpenChange, task }: TaskDialogProps) {
             </FormSection>
 
             <FormSection title="Phân công & Trạng thái" description="Người thực hiện, tiến độ.">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="assignedTo"
@@ -233,7 +233,7 @@ export function TaskDialog({ open, onOpenChange, task }: TaskDialogProps) {
             </FormSection>
 
             <FormSection title="Thời gian" description="Thời gian bắt đầu và kết thúc dự kiến.">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="startDate"

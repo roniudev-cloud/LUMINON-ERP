@@ -90,7 +90,7 @@ export function ReceiptDetail({ receipt }: ReceiptDetailProps) {
               <CardDescription>Chi tiết giao dịch thu tiền từ khách hàng</CardDescription>
             </CardHeader>
             <CardContent className="pt-6 space-y-4 text-sm">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <p className="text-muted-foreground text-xs flex items-center gap-1"><User className="w-3.5 h-3.5" /> Người nộp tiền</p>
                   <p className="font-semibold text-foreground">{receipt.submitterName || receipt.customer?.name || "Khách vãng lai"}</p>

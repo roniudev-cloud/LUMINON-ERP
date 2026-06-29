@@ -19,7 +19,7 @@ export function WorkerDetail({ worker, projects }: { worker: any; projects: any[
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <StatCard title="Lương/ngày" value={formatVND(worker.dailyRate)} icon={Wallet} />
         <StatCard title="Đã ứng (chưa chốt)" value={formatVND(totalAdvances)} icon={HandCoins} />
         <StatCard title="Đã thanh toán" value={formatVND(totalPaid)} icon={Receipt} />

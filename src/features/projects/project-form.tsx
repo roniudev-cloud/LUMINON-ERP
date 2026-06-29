@@ -98,7 +98,7 @@ export function ProjectForm({ initialData, customers, users, onSuccess, onCancel
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormSection title="Thông tin chung" description="Thông tin cơ bản về công trình.">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-2">
             <FormField control={form.control} name="name" render={({ field }: { field: any }) => (
               <FormItem className="sm:col-span-2"><FormLabel>Tên công trình</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
             )} />
@@ -160,7 +160,7 @@ export function ProjectForm({ initialData, customers, users, onSuccess, onCancel
         </FormSection>
 
         <FormSection title="Dự toán ban đầu" description="Chỉ mang tính kế hoạch — chi phí/lợi nhuận thực tế được tự tính từ phiếu thu, phiếu chi, vật tư và lương thợ, xem ở tab Tổng quan sau khi tạo.">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-2">
              <FormField control={form.control} name="expectedCost" render={({ field }: { field: any }) => (
               <FormItem><FormLabel>Chi phí dự kiến</FormLabel><FormControl><Input type="number" {...field} /></FormControl></FormItem>
             )} />

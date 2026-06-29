@@ -37,7 +37,7 @@ function SectionSkeleton({ count = 4, title = "" }: { count?: number, title?: st
   return (
     <div className="animate-pulse">
       {title && <div className="h-6 w-32 bg-muted rounded mb-4 mt-6"></div>}
-      <div className={`grid gap-4 sm:grid-cols-2 ${count >= 3 ? 'xl:grid-cols-' + Math.min(count, 4) : ''}`}>
+      <div className={`grid gap-4 md:grid-cols-2 ${count >= 3 ? 'xl:grid-cols-' + Math.min(count, 4) : ''}`}>
         {Array.from({ length: count }).map((_, i) => (
           <Skeleton key={i} className="h-[120px] rounded-xl" />
         ))}
@@ -53,7 +53,7 @@ export async function CrmSection() {
   return (
     <>
       <h2 className="text-lg font-semibold tracking-tight text-foreground/80 mt-2">Kinh doanh</h2>
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <StatCard title="Tổng khách hàng" value={stats.totalCustomers?.toString() || "0"} icon={Users} />
         <StatCard title="Lead mới" value={stats.newLeads?.toString() || "0"} icon={Users} description="Đang chờ xử lý" />
         <StatCard title="Báo giá" value={stats.totalQuotations?.toString() || "0"} icon={FileText} />
@@ -70,7 +70,7 @@ export async function OperationsSection() {
   return (
     <>
       <h2 className="text-lg font-semibold tracking-tight text-foreground/80 mt-6">Vận hành & Thi công</h2>
-      <div className="grid gap-4 sm:grid-cols-2 lg:max-w-2xl">
+      <div className="grid gap-4 md:grid-cols-2 lg:max-w-2xl">
         <StatCard title="Công trình đang thi công" value={stats.activeProjects?.toString() || "0"} icon={Building2} />
         <StatCard title="Công việc quá hạn" value={stats.overdueTasks?.toString() || "0"} icon={AlertTriangle} description="Cần xử lý gấp" />
       </div>
@@ -89,7 +89,7 @@ export async function FinanceSection() {
   return (
     <>
       <h2 className="text-lg font-semibold tracking-tight text-foreground/80 mt-6">Tài chính</h2>
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <StatCard title="Tổng đã thu" value={formatCurrencyVND(data.totalReceipts)} icon={TrendingUp} />
         <StatCard title="Tổng đã chi" value={formatCurrencyVND(data.totalPayments)} icon={CreditCard} />
         <StatCard title="Phải thu (KH)" value={formatCurrencyVND(data.totalCustomerDebt)} icon={Wallet} description="Công nợ khách hàng" />
@@ -196,7 +196,7 @@ export async function InventorySection() {
   return (
     <>
       <h2 className="text-lg font-semibold tracking-tight text-foreground/80 mt-6">Kho</h2>
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         <StatCard title="Tổng vật tư" value={stats.totalMaterials?.toString() || "0"} icon={Package} />
         <StatCard title="Sắp hết hàng" value={stats.lowStockCount?.toString() || "0"} icon={AlertTriangle} description="Dưới mức tồn tối thiểu" />
         <StatCard title="Giá trị tồn kho" value={formatCurrencyVND(stats.totalInventoryValue)} icon={Wallet} />
@@ -256,7 +256,7 @@ export function DashboardSectionsWrapper() {
       <Suspense fallback={
         <div className="animate-pulse">
           <div className="h-6 w-32 bg-muted rounded mb-4 mt-6"></div>
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {Array.from({ length: 4 }).map((_, i) => (
               <Skeleton key={i} className="h-[120px] rounded-xl" />
             ))}

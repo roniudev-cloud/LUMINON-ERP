@@ -161,7 +161,7 @@ export function ContractForm({ initialData, customers, quotations = [] }: Contra
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormSection title="Thông tin chung" description="Khách hàng và phân loại hợp đồng.">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-2">
             <FormField
               control={form.control}
               name="title"
@@ -370,7 +370,7 @@ export function ContractForm({ initialData, customers, quotations = [] }: Contra
             </div>
           </div>
           
-          <div className="grid gap-4 sm:grid-cols-2 mt-4">
+          <div className="grid gap-4 md:grid-cols-2 mt-4">
             <FormField control={form.control} name="discountType" render={({ field }: { field: any }) => (
                 <FormItem><FormLabel>Loại chiết khấu</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue /></SelectTrigger></FormControl><SelectContent><SelectItem value="amount">Số tiền cố định</SelectItem><SelectItem value="percent">Phần trăm (%)</SelectItem></SelectContent></Select>
