@@ -37,9 +37,8 @@ export async function updateSession(request: NextRequest) {
   // Middleware chỉ cần biết "có đăng nhập hay không" để redirect — gọi getUser()
   // thêm 1 lần nữa ở đây là dư, tốn thêm ~800ms-1s mỗi lần chuyển trang.
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  const user = session?.user ?? null;
+    data: { user },
+  } = await supabase.auth.getUser();
 
   // Define public routes that don't require authentication
   const publicRoutes = ["/login", "/forgot-password", "/reset-password", "/api/migrate-db", "/api/seed", "/api/public"];
