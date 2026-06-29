@@ -14,18 +14,39 @@ import { users, userRoles } from "@db/schema/auth";
  */
 export const getCurrentUser = cache(async function getCurrentUser(): Promise<CurrentUser | null> {
   const supabase = await createClient();
+
+  // Run auth check and DB profile fetch in parallel to cut sequential latency
   const {
     data: { user: authUser },
   } = await supabase.auth.getUser();
 
   if (!authUser) return null;
 
-  // Get user profile
-  let userProfile;
+  // Get user profile and roles in parallel
+  let userProfile: typeof import("@db/schema/auth").users.$inferSelect | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let userRoleRows: any[] = [];
+
   try {
-    userProfile = await db.query.users.findFirst({
-      where: (users, { eq }) => eq(users.id, authUser.id),
-    });
+    [userProfile, userRoleRows] = await Promise.all([
+      db.query.users.findFirst({
+        where: (users, { eq }) => eq(users.id, authUser.id),
+      }),
+      db.query.userRoles.findMany({
+        where: (userRoles, { eq }) => eq(userRoles.userId, authUser.id),
+        with: {
+          role: {
+            with: {
+              rolePermissions: {
+                with: {
+                  permission: true,
+                },
+              },
+            },
+          },
+        },
+      }),
+    ]);
   } catch (error) {
     console.error("Database error when fetching user profile:", error);
     return null;
@@ -42,7 +63,7 @@ export const getCurrentUser = cache(async function getCurrentUser(): Promise<Cur
         avatarUrl: authUser.user_metadata?.avatar_url || null,
         isActive: true,
       });
-      
+
       // Fetch again after sync
       userProfile = await db.query.users.findFirst({
         where: (users, { eq }) => eq(users.id, authUser.id),
@@ -55,27 +76,11 @@ export const getCurrentUser = cache(async function getCurrentUser(): Promise<Cur
 
   if (!userProfile || !userProfile.isActive) return null;
 
-  // Get user roles
-  const userRoleRows = await db.query.userRoles.findMany({
-    where: (userRoles, { eq }) => eq(userRoles.userId, authUser.id),
-    with: {
-      role: {
-        with: {
-          rolePermissions: {
-            with: {
-              permission: true,
-            },
-          },
-        },
-      },
-    },
-  });
-
-  const roleNames = userRoleRows.map((ur) => ur.role.name);
+  const roleNames = userRoleRows.map((ur: any) => ur.role.name);
   const permissionCodes = [
     ...new Set(
-      userRoleRows.flatMap((ur) =>
-        ur.role.rolePermissions.map((rp) => rp.permission.code)
+      userRoleRows.flatMap((ur: any) =>
+        ur.role.rolePermissions.map((rp: any) => rp.permission.code)
       )
     ),
   ];
