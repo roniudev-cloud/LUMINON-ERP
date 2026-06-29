@@ -20,7 +20,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { CreditCard, Loader2 } from "lucide-react";
 
-export function ClientDebtsTable({ data, type }: { data: any[]; type: "customer" | "supplier" }) {
+export function ClientDebtsTable({ data = [], type }: { data: any[]; type: "customer" | "supplier" }) {
   const router = useRouter();
   const [payingDebt, setPayingDebt] = useState<any>(null);
   const [payAmount, setPayAmount] = useState("");

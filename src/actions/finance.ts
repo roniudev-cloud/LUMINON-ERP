@@ -9,6 +9,7 @@ import { revalidatePath } from "next/cache";
 import type { ReceiptFormValues, PaymentFormValues } from "@/lib/validations/finance";
 import { receipts, payments, financeFiles, customerDebts, supplierDebts } from "@db/schema/finance";
 import { contracts } from "@db/schema/sales";
+import { projects } from "@db/schema/projects";
 import { customerActivities } from "@db/schema/crm";
 import { auditLogs } from "@db/schema/auth";
 
@@ -352,7 +353,6 @@ export async function getContractsByCustomer(customerId: string) {
 }
 
 export async function getProjectsByCustomer(customerId: string) {
-  const { projects } = await import("@db/schema/projects");
   await requireAuth();
   const data = await db.query.projects.findMany({
     where: eq(projects.customerId, customerId),

@@ -25,14 +25,14 @@ interface ReceiptFormProps {
   onCancel?: () => void;
 }
 
-export function ReceiptForm({ customers, projects: allProjects, contracts: allContracts, onSuccess, onCancel }: ReceiptFormProps) {
+export function ReceiptForm({ customers = [], projects: allProjects = [], contracts: allContracts = [], onSuccess, onCancel }: ReceiptFormProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Cascade state: filtered lists based on selected customer
-  const [filteredContracts, setFilteredContracts] = useState<{ id: string; code: string; totalValue?: any }[]>(allContracts);
-  const [filteredProjects, setFilteredProjects] = useState<{ id: string; name: string; code: string }[]>(allProjects);
+  const [filteredContracts, setFilteredContracts] = useState<{ id: string; code: string; totalValue?: any }[]>(allContracts || []);
+  const [filteredProjects, setFilteredProjects] = useState<{ id: string; name: string; code: string }[]>(allProjects || []);
   const [isLoadingLookups, setIsLoadingLookups] = useState(false);
 
   const defaultValues: Partial<ReceiptFormValues> = {
