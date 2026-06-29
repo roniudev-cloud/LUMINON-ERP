@@ -65,31 +65,33 @@ export function RevenueReportSection({ initialData }: RevenueReportSectionProps)
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-end gap-2">
-        <div className="flex items-center gap-1.5">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-end gap-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-1.5 w-full sm:w-auto">
           <Input
             type="date"
             value={fromDate}
             onChange={(e) => handleFromChange(e.target.value)}
-            className="w-40"
+            className="w-full sm:w-40"
             aria-label="Từ ngày"
           />
-          <span className="text-sm text-muted-foreground">đến</span>
-          <Input
-            type="date"
-            value={toDate}
-            onChange={(e) => handleToChange(e.target.value)}
-            className="w-40"
-            aria-label="Đến ngày"
-          />
-          {hasRange && (
-            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={clearRange} title="Xóa lọc theo ngày">
-              <X className="h-4 w-4" />
-            </Button>
-          )}
+          <span className="text-sm text-muted-foreground text-center sm:text-left">đến</span>
+          <div className="flex items-center gap-1.5">
+            <Input
+              type="date"
+              value={toDate}
+              onChange={(e) => handleToChange(e.target.value)}
+              className="w-full sm:w-40"
+              aria-label="Đến ngày"
+            />
+            {hasRange && (
+              <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={clearRange} title="Xóa lọc theo ngày">
+                <X className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
         </div>
         <Select value={granularity} onValueChange={handleGranularityChange}>
-          <SelectTrigger className="w-56"><SelectValue /></SelectTrigger>
+          <SelectTrigger className="w-full sm:w-56"><SelectValue /></SelectTrigger>
           <SelectContent>
             {GRANULARITY_OPTIONS.map((o) => (
               <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>

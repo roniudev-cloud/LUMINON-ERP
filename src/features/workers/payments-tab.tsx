@@ -114,7 +114,7 @@ export function PaymentsTab({
             <DialogHeader><DialogTitle>Chốt lương kỳ</DialogTitle></DialogHeader>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FormField control={form.control} name="period" render={({ field }) => (
                     <FormItem><FormLabel>Kỳ lương *</FormLabel><FormControl><Input type="month" {...field} /></FormControl><FormMessage /></FormItem>
                   )} />
@@ -148,7 +148,7 @@ export function PaymentsTab({
                 )} />
 
                 {paymentType === "daily" ? (
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <FormField control={form.control} name="totalDays" render={({ field }) => (
                       <FormItem><FormLabel>Số công</FormLabel><FormControl><Input type="number" min="0" step="0.5" {...field} /></FormControl><FormMessage /></FormItem>
                     )} />

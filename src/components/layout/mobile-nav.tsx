@@ -26,14 +26,10 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="left" className="w-[280px] p-0 bg-sidebar text-sidebar-foreground">
-        <SheetHeader className="px-4 h-16 flex flex-row items-center border-b border-sidebar-border">
-          <div className="h-8 w-8 rounded-lg bg-sidebar-primary flex items-center justify-center">
-            <span className="text-sidebar-primary-foreground font-bold text-sm">
-              L
-            </span>
-          </div>
+        <SheetHeader className="px-4 h-16 flex flex-row items-center gap-2.5 border-b border-sidebar-border">
+          <img src="/logo.png" alt="LUMINON" className="h-10 w-10 rounded-lg object-cover shrink-0" />
           <SheetTitle className="font-heading font-bold text-lg tracking-tight text-sidebar-foreground">
-            LUMINON
+            LUMINON <span className="text-sidebar-foreground/50 font-medium">ERP</span>
           </SheetTitle>
         </SheetHeader>
 

@@ -211,7 +211,7 @@ return (
         className="md:grid-cols-1"
       >
         <div className="rounded-xl border overflow-hidden">
-          <div className="grid grid-cols-12 gap-2 bg-muted p-4 text-sm font-medium">
+          <div className="hidden md:grid grid-cols-12 gap-2 bg-muted p-4 text-sm font-medium">
             <div className="col-span-4">Tên hạng mục</div>
             <div className="col-span-1">ĐVT</div>
             <div className="col-span-1">SL</div>
@@ -222,8 +222,8 @@ return (
 
           <div className="p-4 space-y-4">
             {fields.map((field, index) => (
-              <div key={field.id} className="grid grid-cols-12 gap-2 items-start">
-                <div className="col-span-4 space-y-2">
+              <div key={field.id} className="grid grid-cols-2 md:grid-cols-12 gap-3 md:gap-2 md:items-start rounded-lg border p-3 md:border-0 md:p-0">
+                <div className="col-span-2 md:col-span-4 space-y-2">
                   <FormField
                     control={form.control}
                     name={`items.${index}.name`}
@@ -250,6 +250,7 @@ return (
                 </div>
 
                 <div className="col-span-1">
+                  <FormLabel className="md:hidden text-xs text-muted-foreground mb-1.5 block">ĐVT</FormLabel>
                   <FormField
                     control={form.control}
                     name={`items.${index}.unit`}
@@ -264,6 +265,7 @@ return (
                 </div>
 
                 <div className="col-span-1">
+                  <FormLabel className="md:hidden text-xs text-muted-foreground mb-1.5 block">SL</FormLabel>
                   <FormField
                     control={form.control}
                     name={`items.${index}.quantity`}
@@ -277,7 +279,8 @@ return (
                   />
                 </div>
 
-                <div className="col-span-2">
+                <div className="col-span-1 md:col-span-2">
+                  <FormLabel className="md:hidden text-xs text-muted-foreground mb-1.5 block">Đơn giá</FormLabel>
                   <FormField
                     control={form.control}
                     name={`items.${index}.unitPrice`}
@@ -291,22 +294,23 @@ return (
                   />
                 </div>
 
-                <div className="col-span-3">
+                <div className="col-span-1 md:col-span-3">
+                  <FormLabel className="md:hidden text-xs text-muted-foreground mb-1.5 block">Thành tiền</FormLabel>
                   <div className="h-10 px-3 py-2 border rounded-md bg-muted/30 flex items-center justify-end font-medium">
                     {formatVND(form.watch(`items.${index}.amount`))}
                   </div>
                 </div>
 
-                <div className="col-span-1 flex justify-end">
+                <div className="col-span-2 md:col-span-1 flex justify-end">
                   <Button
                     type="button"
                     variant="ghost"
-                    size="icon"
-                    className="text-destructive hover:bg-destructive/10"
+                    size="sm"
+                    className="text-destructive hover:bg-destructive/10 md:h-9 md:w-9 md:p-0"
                     onClick={() => remove(index)}
                     disabled={fields.length === 1}
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 className="h-4 w-4 md:mr-0 mr-2" /> <span className="md:hidden">Xóa hạng mục</span>
                   </Button>
                 </div>
               </div>

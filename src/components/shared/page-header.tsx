@@ -35,7 +35,7 @@ export function PageHeader({
           <p className="text-sm text-muted-foreground mt-1">{description}</p>
         )}
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-3">
         {children}
         {action &&
           (action.href ? (

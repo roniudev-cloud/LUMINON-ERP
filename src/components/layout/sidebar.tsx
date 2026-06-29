@@ -27,8 +27,11 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       {/* Logo */}
       <div className="flex h-16 items-center justify-between px-4 border-b border-sidebar-border">
         {!collapsed && (
-          <Link href="/dashboard" className="flex items-center gap-2 min-w-0">
-            <img src="/logo.png" alt="LUMINON" className="h-8 object-contain" />
+          <Link href="/dashboard" className="flex items-center gap-2.5 min-w-0">
+            <img src="/logo.png" alt="LUMINON" className="h-10 w-10 rounded-lg object-cover shrink-0" />
+            <span className="font-heading font-bold text-lg tracking-tight truncate">
+              LUMINON <span className="text-sidebar-foreground/50 font-medium">ERP</span>
+            </span>
           </Link>
         )}
         {collapsed && (
@@ -36,7 +39,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
             href="/dashboard"
             className="mx-auto flex items-center justify-center"
           >
-            <img src="/logo.png" alt="L" className="h-8 w-8 object-cover object-left" />
+            <img src="/logo.png" alt="L" className="h-9 w-9 rounded-lg object-cover object-left" />
           </Link>
         )}
         <button

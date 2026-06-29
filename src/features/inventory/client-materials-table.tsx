@@ -20,6 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
+import { MobileEntityCard, MobileEntityCardList } from "@/components/shared/mobile-entity-card";
 import { MaterialDialog } from "./material-form-dialog";
 import { deleteMaterial } from "@/actions/inventory";
 import { formatVND } from "@/lib/utils";
@@ -55,16 +56,16 @@ export function ClientMaterialsTable({ data }: { data: any[] }) {
     <>
       <div className="p-4 border-b flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between bg-card">
         <h3 className="font-semibold text-lg">Danh mục vật tư</h3>
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <div className="relative">
             <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input placeholder="Tìm vật tư..." className="pl-8 w-56" value={search} onChange={(e) => setSearch(e.target.value)} />
+            <Input placeholder="Tìm vật tư..." className="pl-8 w-full sm:w-56" value={search} onChange={(e) => setSearch(e.target.value)} />
           </div>
           <Button onClick={() => { setSelected(null); setIsDialogOpen(true); }}>+ Thêm vật tư</Button>
         </div>
       </div>
 
-      <div className="overflow-x-auto bg-card">
+      <div className="hidden md:block overflow-x-auto bg-card">
         <Table>
           <TableHeader>
             <TableRow>
@@ -121,6 +122,48 @@ export function ClientMaterialsTable({ data }: { data: any[] }) {
           </TableBody>
         </Table>
       </div>
+
+      <MobileEntityCardList empty={filtered.length === 0}>
+        {filtered.map((m) => {
+          const low = m.currentStock <= m.minStock;
+          return (
+            <MobileEntityCard
+              key={m.id}
+              title={m.name}
+              subtitle={`${m.code} · ${m.unit}`}
+              actions={
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="h-8 w-8 p-0" onClick={(e) => e.stopPropagation()}><MoreHorizontal className="h-4 w-4" /></Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem onClick={() => { setSelected(m); setIsDialogOpen(true); }}>
+                      <Pencil className="mr-2 h-4 w-4" /> Cập nhật
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => { setDeleting(m); setIsDeleteOpen(true); }} className="text-destructive focus:bg-destructive/10">
+                      <Trash2 className="mr-2 h-4 w-4" /> Xóa
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              }
+              fields={[
+                { label: "Danh mục", value: m.category?.name || "—" },
+                {
+                  label: "Tồn kho",
+                  value: (
+                    <span className={low ? "text-red-600 font-semibold inline-flex items-center gap-1" : ""}>
+                      {low && <AlertTriangle className="h-3.5 w-3.5" />}
+                      {m.currentStock}
+                    </span>
+                  ),
+                },
+                { label: "Tồn tối thiểu", value: m.minStock },
+                { label: "Đơn giá", value: formatVND(m.unitPrice) },
+              ]}
+            />
+          );
+        })}
+      </MobileEntityCardList>
 
       <MaterialDialog open={isDialogOpen} onOpenChange={setIsDialogOpen} material={selected} />
       <ConfirmDialog

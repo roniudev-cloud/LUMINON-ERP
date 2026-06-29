@@ -117,7 +117,7 @@ export function MaterialDialog({ open, onOpenChange, material }: MaterialDialogP
                 <FormItem><FormLabel>Tên vật tư *</FormLabel><FormControl><Input placeholder="VD: Tấm Alu 1.2mm" {...field} /></FormControl><FormMessage /></FormItem>
               )} />
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FormField control={form.control} name="categoryId" render={({ field }) => (
                   <FormItem>
                     <FormLabel>Danh mục</FormLabel>
@@ -146,7 +146,7 @@ export function MaterialDialog({ open, onOpenChange, material }: MaterialDialogP
                 )} />
               </div>
 
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <FormField control={form.control} name="unit" render={({ field }) => (
                   <FormItem>
                     <FormLabel>Đơn vị tính *</FormLabel>

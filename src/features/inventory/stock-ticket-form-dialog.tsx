@@ -111,7 +111,7 @@ export function StockTicketDialog({ open, onOpenChange, type }: StockTicketDialo
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <FormField control={form.control} name="date" render={({ field }) => (
                 <FormItem><FormLabel>Ngày {type === "IN" ? "nhập" : "xuất"}</FormLabel><FormControl><Input type="date" {...field} /></FormControl><FormMessage /></FormItem>
               )} />
@@ -167,7 +167,7 @@ export function StockTicketDialog({ open, onOpenChange, type }: StockTicketDialo
               </div>
 
               {fields.map((field, index) => (
-                <div key={field.id} className="grid grid-cols-[1fr_90px_120px_32px] gap-2 items-start">
+                <div key={field.id} className="space-y-2 rounded-lg border p-3 sm:space-y-0 sm:border-0 sm:p-0 sm:grid sm:grid-cols-[1fr_90px_120px_32px] sm:gap-2 sm:items-start">
                   <FormField control={form.control} name={`items.${index}.materialId`} render={({ field: f }) => (
                     <FormItem>
                       <Select onValueChange={(v) => handleMaterialChange(index, v)} value={f.value}>
@@ -181,15 +181,17 @@ export function StockTicketDialog({ open, onOpenChange, type }: StockTicketDialo
                       <FormMessage />
                     </FormItem>
                   )} />
-                  <FormField control={form.control} name={`items.${index}.quantity`} render={({ field: f }) => (
-                    <FormItem><FormControl><Input type="number" min="1" placeholder="SL" {...f} /></FormControl><FormMessage /></FormItem>
-                  )} />
-                  <FormField control={form.control} name={`items.${index}.unitPrice`} render={({ field: f }) => (
-                    <FormItem><FormControl><Input type="number" min="0" placeholder="Đơn giá" {...f} /></FormControl><FormMessage /></FormItem>
-                  )} />
-                  <Button type="button" variant="ghost" size="icon" disabled={fields.length === 1} onClick={() => remove(index)}>
-                    <Trash2 className="h-4 w-4 text-destructive" />
-                  </Button>
+                  <div className="grid grid-cols-[1fr_1fr_auto] gap-2 sm:contents">
+                    <FormField control={form.control} name={`items.${index}.quantity`} render={({ field: f }) => (
+                      <FormItem><FormControl><Input type="number" min="1" placeholder="SL" {...f} /></FormControl><FormMessage /></FormItem>
+                    )} />
+                    <FormField control={form.control} name={`items.${index}.unitPrice`} render={({ field: f }) => (
+                      <FormItem><FormControl><Input type="number" min="0" placeholder="Đơn giá" {...f} /></FormControl><FormMessage /></FormItem>
+                    )} />
+                    <Button type="button" variant="ghost" size="icon" disabled={fields.length === 1} onClick={() => remove(index)}>
+                      <Trash2 className="h-4 w-4 text-destructive" />
+                    </Button>
+                  </div>
                 </div>
               ))}
 

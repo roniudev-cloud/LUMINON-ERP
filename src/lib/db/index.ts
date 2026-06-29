@@ -22,3 +22,19 @@ const client = postgres(connectionString, {
 });
 
 export const db = drizzle(client, { schema });
+
+// Mở sẵn vài connection ngay khi server start, và "hâm" lại định kỳ trước khi
+// idle_timeout (300s) kịp đóng chúng. Không làm thì request đầu tiên sau một
+// lúc không ai vào app (sáng mới mở máy, sau giờ ăn trưa...) phải tự mở
+// connection mới — tốn ~1.5-1.7s mỗi connection (TLS handshake tới Supabase ở
+// xa) — đúng cảm giác "chờ load lâu" người dùng gặp. globalThis flag để tránh
+// chạy lại do Next.js dev mode hot-reload module này nhiều lần.
+const g = globalThis as unknown as { __dbWarmed?: boolean };
+if (!g.__dbWarmed) {
+  g.__dbWarmed = true;
+  const WARM_CONNECTIONS = 6;
+  const warm = () =>
+    Promise.all(Array.from({ length: WARM_CONNECTIONS }, () => client`SELECT 1`)).catch(() => {});
+  warm();
+  setInterval(warm, 4 * 60 * 1000);
+}

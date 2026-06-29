@@ -52,84 +52,88 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* LUMINON ERP Brand Theme - Light Mode */
+/* LUMINON ERP Brand Theme — "sang trọng + sáng": canvas trắng ngà sáng (gần trắng
+   thuần, chỉ thoáng ấm), đỏ rượu vang làm điểm nhấn rõ ràng nhưng không phủ kín
+   nền, vàng đồng (brass) cho hover/active, shadow rất nhẹ/khuếch tán (không dùng
+   shadow đen nặng), sidebar than ấm để tạo điểm tối duy nhất tương phản với canvas
+   sáng (kết hợp redesign-existing-projects + minimalist-ui). */
 :root {
-  --background: oklch(0.985 0.002 247);     /* #F8FAFC */
-  --foreground: oklch(0.145 0.005 285);     /* #111827 dark text */
-  --card: oklch(1 0 0);                     /* #FFFFFF */
-  --card-foreground: oklch(0.145 0.005 285);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0.005 285);
-  --primary: #8B1E1E;                       /* #8B1E1E - LUMINON Red */
-  --primary-foreground: #FFFFFF;            /* White text on primary */
-  --secondary: oklch(0.97 0.002 247);       /* Light gray */
-  --secondary-foreground: oklch(0.205 0.005 285);
-  --muted: oklch(0.97 0.002 247);
-  --muted-foreground: oklch(0.556 0.01 260);  /* #6B7280 */
-  --accent: oklch(0.97 0.002 247);
-  --accent-foreground: oklch(0.205 0.005 285);
-  --destructive: oklch(0.577 0.245 27.325); /* #DC2626 */
-  --success: oklch(0.55 0.17 145);          /* #16A34A */
-  --success-foreground: oklch(0.985 0 0);
-  --warning: oklch(0.75 0.15 75);           /* #F59E0B */
-  --warning-foreground: oklch(0.145 0.005 285);
-  --border: oklch(0.922 0.004 247);         /* #E5E7EB */
-  --input: oklch(0.922 0.004 247);
-  --ring: #8B1E1E;                          /* Same as primary */
-  --chart-1: #8B1E1E;                       /* Primary red */
-  --chart-2: oklch(0.55 0.17 145);          /* Success green */
-  --chart-3: oklch(0.75 0.15 75);           /* Warning amber */
-  --chart-4: oklch(0.55 0.15 260);          /* Blue */
-  --chart-5: oklch(0.60 0.15 310);          /* Purple */
-  --radius: 0.625rem;
-  /* Sidebar - Dark theme sidebar */
-  --sidebar: oklch(0.17 0.005 285);         /* #111827 dark sidebar */
-  --sidebar-foreground: oklch(0.92 0.005 247);
-  --sidebar-primary: #8B1E1E;               /* LUMINON red for sidebar */
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: oklch(0.22 0.005 285);
-  --sidebar-accent-foreground: oklch(0.92 0.005 247);
-  --sidebar-border: oklch(0.25 0.005 285);
-  --sidebar-ring: #8B1E1E;
+  --background: oklch(0.99 0.004 75);       /* Trắng ngà sáng, gần trắng thuần */
+  --foreground: oklch(0.2 0.012 45);        /* Nâu đen ấm, không phải đen thuần */
+  --card: oklch(1 0.002 75);                /* Trắng tinh, thoáng ấm */
+  --card-foreground: oklch(0.2 0.012 45);
+  --popover: oklch(1 0.002 75);
+  --popover-foreground: oklch(0.2 0.012 45);
+  --primary: #7A1620;                       /* Đỏ rượu vang đậm — chủ đạo */
+  --primary-foreground: #FDF6F0;            /* Kem nhạt trên nền đỏ, ấm hơn trắng thuần */
+  --secondary: oklch(0.96 0.008 65);         /* Kem rất nhạt để phân lớp nhẹ */
+  --secondary-foreground: oklch(0.24 0.014 45);
+  --muted: oklch(0.965 0.007 68);
+  --muted-foreground: oklch(0.48 0.018 50);  /* Nâu xám ấm */
+  --accent: oklch(0.88 0.05 80);             /* Vàng đồng (brass) nhạt — hover/active */
+  --accent-foreground: oklch(0.28 0.05 50);  /* Nâu đỏ đậm trên nền brass */
+  --destructive: oklch(0.55 0.21 25);
+  --success: oklch(0.5 0.13 152);
+  --success-foreground: oklch(0.99 0.004 75);
+  --warning: oklch(0.72 0.13 73);            /* Vàng đồng đậm */
+  --warning-foreground: oklch(0.2 0.02 50);
+  --border: oklch(0.915 0.01 65);           /* Viền rất nhạt, kiểu editorial */
+  --input: oklch(0.915 0.01 65);
+  --ring: #7A1620;
+  --chart-1: #7A1620;                       /* Đỏ rượu vang */
+  --chart-2: oklch(0.5 0.13 152);            /* Xanh lá ấm */
+  --chart-3: oklch(0.72 0.13 73);            /* Vàng đồng */
+  --chart-4: oklch(0.5 0.1 250);             /* Xanh navy trầm */
+  --chart-5: oklch(0.48 0.13 335);           /* Tím rượu (burgundy-plum) */
+  --radius: 0.75rem;
+  /* Sidebar — than ấm (warm charcoal), không xanh-xám lạnh */
+  --sidebar: oklch(0.155 0.014 45);
+  --sidebar-foreground: oklch(0.9 0.012 70);
+  --sidebar-primary: #A8324A;                /* Đỏ rượu vang sáng hơn để nổi trên nền tối */
+  --sidebar-primary-foreground: #FDF6F0;
+  --sidebar-accent: oklch(0.22 0.016 48);
+  --sidebar-accent-foreground: oklch(0.93 0.02 75);
+  --sidebar-border: oklch(0.27 0.016 48);
+  --sidebar-ring: #A8324A;
 }
 
-/* Dark Mode */
+/* Dark Mode — cùng tinh thần ấm áp, không chuyển sang xanh-xám trung tính */
 .dark {
-  --background: oklch(0.145 0.005 285);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0.005 285);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0.005 285);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: #8B1E1E;
-  --primary-foreground: #FFFFFF;
-  --secondary: oklch(0.269 0.005 285);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0.005 285);
-  --muted-foreground: oklch(0.708 0.01 260);
-  --accent: oklch(0.269 0.005 285);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --success: oklch(0.65 0.17 145);
-  --success-foreground: oklch(0.985 0 0);
-  --warning: oklch(0.80 0.15 75);
-  --warning-foreground: oklch(0.145 0.005 285);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: #8B1E1E;
-  --chart-1: #8B1E1E;
-  --chart-2: oklch(0.65 0.17 145);
-  --chart-3: oklch(0.80 0.15 75);
-  --chart-4: oklch(0.65 0.15 260);
-  --chart-5: oklch(0.70 0.15 310);
-  --sidebar: oklch(0.145 0.005 285);
-  --sidebar-foreground: oklch(0.92 0.005 247);
-  --sidebar-primary: #8B1E1E;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: oklch(0.205 0.005 285);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: #8B1E1E;
+  --background: oklch(0.16 0.012 50);
+  --foreground: oklch(0.95 0.008 70);
+  --card: oklch(0.21 0.014 48);
+  --card-foreground: oklch(0.95 0.008 70);
+  --popover: oklch(0.21 0.014 48);
+  --popover-foreground: oklch(0.95 0.008 70);
+  --primary: #A8324A;
+  --primary-foreground: #FDF6F0;
+  --secondary: oklch(0.275 0.015 48);
+  --secondary-foreground: oklch(0.95 0.008 70);
+  --muted: oklch(0.275 0.015 48);
+  --muted-foreground: oklch(0.68 0.018 60);
+  --accent: oklch(0.32 0.045 70);
+  --accent-foreground: oklch(0.92 0.04 80);
+  --destructive: oklch(0.65 0.2 24);
+  --success: oklch(0.62 0.15 152);
+  --success-foreground: oklch(0.98 0.005 75);
+  --warning: oklch(0.78 0.13 75);
+  --warning-foreground: oklch(0.18 0.014 45);
+  --border: oklch(1 0.006 70 / 12%);
+  --input: oklch(1 0.006 70 / 16%);
+  --ring: #A8324A;
+  --chart-1: #A8324A;
+  --chart-2: oklch(0.62 0.15 152);
+  --chart-3: oklch(0.78 0.13 75);
+  --chart-4: oklch(0.62 0.11 250);
+  --chart-5: oklch(0.58 0.14 335);
+  --sidebar: oklch(0.13 0.012 48);
+  --sidebar-foreground: oklch(0.9 0.012 70);
+  --sidebar-primary: #A8324A;
+  --sidebar-primary-foreground: #FDF6F0;
+  --sidebar-accent: oklch(0.205 0.015 48);
+  --sidebar-accent-foreground: oklch(0.95 0.008 70);
+  --sidebar-border: oklch(1 0.006 70 / 10%);
+  --sidebar-ring: #A8324A;
 }
 
 @layer base {
@@ -141,6 +145,23 @@
   }
   html {
     @apply font-sans scroll-smooth;
+  }
+}
+
+@layer utilities {
+  /* Shadow khuếch tán, nhạt, ngả ấm — thay cho shadow đen mặc định của Tailwind
+     (theo minimalist-ui: shadow phải gần như vô hình, không phải khối xám nặng). */
+  .shadow-xs, .shadow-sm {
+    box-shadow: 0 1px 2px oklch(0.2 0.012 45 / 0.04), 0 1px 1px oklch(0.2 0.012 45 / 0.03);
+  }
+  .shadow, .shadow-md {
+    box-shadow: 0 2px 8px oklch(0.2 0.012 45 / 0.05), 0 1px 2px oklch(0.2 0.012 45 / 0.04);
+  }
+  .shadow-lg {
+    box-shadow: 0 8px 24px oklch(0.2 0.012 45 / 0.07), 0 2px 6px oklch(0.2 0.012 45 / 0.04);
+  }
+  .shadow-xl {
+    box-shadow: 0 16px 40px oklch(0.2 0.012 45 / 0.09), 0 4px 10px oklch(0.2 0.012 45 / 0.05);
   }
 }
 

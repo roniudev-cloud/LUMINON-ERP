@@ -120,7 +120,7 @@ export function UserForm({ roles, mode, userId, initialData }: UserFormProps) {
           <CardContent>
             <FormField control={form.control} name="roleIds" render={({ field }) => (
               <FormItem>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {roles.map((role) => (
                     <label key={role.id} className="flex items-center gap-2 text-sm border rounded-md p-2.5 cursor-pointer hover:bg-muted/50">
                       <Checkbox

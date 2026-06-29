@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
+import { MobileEntityCard, MobileEntityCardList } from "@/components/shared/mobile-entity-card";
 import { Search, Shield, Lock, Unlock, Edit } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import { toggleUserStatus } from "@/actions/users";
@@ -60,8 +61,8 @@ export function ClientUsersTable({ data, currentUserId }: { data: UserRow[]; cur
 
   return (
     <div className="border rounded-xl bg-card overflow-hidden">
-      <div className="p-4 border-b flex justify-between gap-4">
-        <div className="relative w-64">
+      <div className="p-4 border-b flex flex-col sm:flex-row justify-between gap-3 sm:gap-4">
+        <div className="relative w-full sm:w-64">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="Tìm tên hoặc email..."
@@ -71,7 +72,7 @@ export function ClientUsersTable({ data, currentUserId }: { data: UserRow[]; cur
           />
         </div>
         <Select value={roleFilter} onValueChange={setRoleFilter}>
-          <SelectTrigger className="w-48"><SelectValue /></SelectTrigger>
+          <SelectTrigger className="w-full sm:w-48"><SelectValue /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Tất cả vai trò</SelectItem>
             {allRoles.map((r) => (<SelectItem key={r} value={r} className="capitalize">{r}</SelectItem>))}
@@ -79,7 +80,7 @@ export function ClientUsersTable({ data, currentUserId }: { data: UserRow[]; cur
         </Select>
       </div>
 
-      <table className="w-full text-sm text-left">
+      <table className="hidden md:table w-full text-sm text-left">
         <thead className="bg-muted text-muted-foreground">
           <tr>
             <th className="p-4 font-medium">Nhân viên</th>
@@ -151,6 +152,49 @@ export function ClientUsersTable({ data, currentUserId }: { data: UserRow[]; cur
           )}
         </tbody>
       </table>
+
+      <div className="md:hidden p-3">
+        <MobileEntityCardList empty={filtered.length === 0}>
+          {filtered.map((user) => (
+            <MobileEntityCard
+              key={user.id}
+              title={user.fullName}
+              subtitle={user.email}
+              actions={
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  disabled={user.id === currentUserId}
+                  className={user.isActive ? "text-red-600 hover:text-red-700 hover:bg-red-50" : "text-green-600 hover:text-green-700 hover:bg-green-50"}
+                  onClick={(e) => { e.stopPropagation(); setToggleTarget(user); }}
+                >
+                  {user.isActive ? <Lock className="h-4 w-4" /> : <Unlock className="h-4 w-4" />}
+                </Button>
+              }
+              fields={[
+                {
+                  label: "Vai trò",
+                  value: (
+                    <div className="flex flex-wrap gap-1 justify-end">
+                      {user.roles.length > 0 ? user.roles.map((role) => (
+                        <span key={role} className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full text-[11px] font-semibold uppercase">{role}</span>
+                      )) : <span className="text-xs text-muted-foreground">Chưa phân quyền</span>}
+                    </div>
+                  ),
+                },
+                {
+                  label: "Trạng thái",
+                  value: user.isActive
+                    ? <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-bold uppercase">Hoạt động</span>
+                    : <span className="px-2 py-1 bg-red-100 text-red-700 rounded text-xs font-bold uppercase">Đã khóa</span>,
+                },
+                { label: "Ngày tham gia", value: formatDate(user.createdAt) },
+                { label: "Chỉnh sửa", value: <Link href={`/settings/users/${user.id}/edit`} className="text-primary hover:underline" onClick={(e) => e.stopPropagation()}><Edit className="h-3.5 w-3.5 inline mr-1" />Sửa</Link> },
+              ]}
+            />
+          ))}
+        </MobileEntityCardList>
+      </div>
 
       <ConfirmDialog
         open={!!toggleTarget}

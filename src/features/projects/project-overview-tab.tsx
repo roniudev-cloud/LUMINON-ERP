@@ -54,7 +54,7 @@ export function ProjectOverviewTab({ project, canEdit, canViewFinance, onSwitchT
           <CardTitle>Thông tin chung</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4 text-sm">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <p className="text-muted-foreground mb-1">Tên công trình</p>
               <p className="font-medium text-lg">{project.name}</p>

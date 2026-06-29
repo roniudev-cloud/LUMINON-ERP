@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { VatInvoiceDialog } from "./vat-invoice-form-dialog";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
+import { MobileEntityCard, MobileEntityCardList } from "@/components/shared/mobile-entity-card";
 import { deleteVatInvoice } from "@/actions/vat-invoices";
 import { StatusBadge } from "@/components/shared/status-badge";
 import { toast } from "sonner";
@@ -64,12 +65,12 @@ export function ClientVatInvoicesTable({ data }: { data: any[] }) {
 
   return (
     <>
-      <div className="p-4 border-b flex justify-between items-center bg-card">
+      <div className="p-4 border-b flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between bg-card">
         <h3 className="font-semibold text-lg">Danh sách Hóa đơn VAT</h3>
-        <Button onClick={handleCreate}>+ Thêm hóa đơn</Button>
+        <Button onClick={handleCreate} className="sm:self-auto self-start">+ Thêm hóa đơn</Button>
       </div>
       
-      <div className="overflow-x-auto bg-card">
+      <div className="hidden md:block overflow-x-auto bg-card">
         <Table>
           <TableHeader>
             <TableRow>
@@ -145,6 +146,48 @@ export function ClientVatInvoicesTable({ data }: { data: any[] }) {
           </TableBody>
         </Table>
       </div>
+
+      <MobileEntityCardList empty={data.length === 0}>
+        {data.map((invoice) => (
+          <MobileEntityCard
+            key={invoice.id}
+            title={invoice.code}
+            subtitle={invoice.issueDate ? format(new Date(invoice.issueDate), "dd/MM/yyyy", { locale: vi }) : "—"}
+            actions={
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="h-8 w-8 p-0" onClick={(e) => e.stopPropagation()}>
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => handleEdit(invoice)}>
+                    <Pencil className="mr-2 h-4 w-4" /> Cập nhật
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleDelete(invoice)} className="text-destructive focus:bg-destructive/10">
+                    <Trash2 className="mr-2 h-4 w-4" /> Xóa
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            }
+            fields={[
+              {
+                label: "Loại",
+                value: invoice.type === "outbound" ? (
+                  <span className="inline-flex items-center text-green-600 font-medium"><ArrowUpRight className="w-4 h-4 mr-1" /> Đầu ra</span>
+                ) : (
+                  <span className="inline-flex items-center text-amber-600 font-medium"><ArrowDownLeft className="w-4 h-4 mr-1" /> Đầu vào</span>
+                ),
+              },
+              { label: "Khách hàng/Đối tác", value: invoice.type === "outbound" ? invoice.customer?.name || "—" : invoice.supplierId || "Nhà cung cấp" },
+              { label: "Tiền trước thuế", value: `${formatNumber(invoice.amount)} đ` },
+              { label: "Tiền thuế", value: `${formatNumber(invoice.vatAmount)} đ (${Number(invoice.vatRate)}%)` },
+              { label: "Tổng tiền", value: <span className="font-bold">{formatNumber(invoice.totalAmount)} đ</span> },
+              { label: "Trạng thái", value: <StatusBadge status={invoice.status} /> },
+            ]}
+          />
+        ))}
+      </MobileEntityCardList>
 
       <VatInvoiceDialog
         open={isDialogOpen}

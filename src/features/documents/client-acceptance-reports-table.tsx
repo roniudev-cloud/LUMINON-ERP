@@ -15,6 +15,7 @@ import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Trash2, CheckCircle2 } from "lucide-react";
+import { MobileEntityCard } from "@/components/shared/mobile-entity-card";
 import { formatDate } from "@/lib/utils";
 import { saveAcceptanceSignature, deleteAcceptanceReport } from "@/actions/documents";
 import { toast } from "sonner";
@@ -55,7 +56,7 @@ export function ClientAcceptanceReportsTable({ data }: { data: any[] }) {
 
   return (
     <>
-      <Table>
+      <Table className="hidden md:table">
         <TableHeader>
           <TableRow>
             <TableHead>Mã BB</TableHead>
@@ -99,6 +100,41 @@ export function ClientAcceptanceReportsTable({ data }: { data: any[] }) {
           ))}
         </TableBody>
       </Table>
+
+      <div className="md:hidden space-y-3">
+        {data.map((r) => (
+          <div key={r.id} className="space-y-2">
+            <MobileEntityCard
+              title={r.code}
+              subtitle={`${r.project?.name} (${r.project?.code})`}
+              actions={
+                <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); openDelete(r); }}>
+                  <Trash2 className="h-4 w-4 text-destructive" />
+                </Button>
+              }
+              fields={[
+                { label: "Trạng thái", value: <StatusBadge status={r.status} /> },
+                {
+                  label: "Chữ ký",
+                  value: (
+                    <div className="flex gap-1 justify-end">
+                      <Badge variant={r.customerSignature ? "default" : "outline"} className={r.customerSignature ? "bg-green-100 text-green-700" : ""}>KH</Badge>
+                      <Badge variant={r.companySignature ? "default" : "outline"} className={r.companySignature ? "bg-green-100 text-green-700" : ""}>Cty</Badge>
+                    </div>
+                  ),
+                },
+                { label: "Ngày tạo", value: formatDate(r.createdAt) },
+              ]}
+            />
+            {(!r.customerSignature || !r.companySignature) && (
+              <div className="flex gap-2 justify-end px-1">
+                {!r.customerSignature && <SignaturePadDialog triggerLabel="KH ký" title="Khách hàng ký nghiệm thu" onSave={handleSign(r.id, "customer")} />}
+                {!r.companySignature && <SignaturePadDialog triggerLabel="Cty ký" title="Đại diện công ty ký nghiệm thu" onSave={handleSign(r.id, "company")} />}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
 
       <ConfirmDialog
         open={isDeleteOpen}

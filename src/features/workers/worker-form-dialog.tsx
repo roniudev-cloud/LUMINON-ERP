@@ -126,7 +126,7 @@ export function WorkerDialog({ open, onOpenChange, worker }: WorkerDialogProps) 
                   </FormItem>
                 )}
               />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="phone"
@@ -157,7 +157,7 @@ export function WorkerDialog({ open, onOpenChange, worker }: WorkerDialogProps) 
             </FormSection>
 
             <FormSection title="Công việc & Lương" description="Chuyên môn và đơn giá ngày công.">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="roleId"

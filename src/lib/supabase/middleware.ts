@@ -29,10 +29,17 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
-  // IMPORTANT: Do not remove this. It refreshes the auth token.
+  // Dùng getSession() ở middleware: đọc JWT từ cookie, chỉ gọi mạng tới Supabase
+  // Auth khi token đã hết hạn cần refresh — còn lại đọc local, không tốn round-trip.
+  // getUser() luôn gọi mạng để revalidate, đúng cho nơi cần tin tưởng tuyệt đối
+  // danh tính (đã dùng trong getCurrentUser() ở src/actions/auth.ts cho mọi page/
+  // action thật sự truy cập data — KHÔNG đổi, vẫn xác thực đầy đủ qua mạng ở đó).
+  // Middleware chỉ cần biết "có đăng nhập hay không" để redirect — gọi getUser()
+  // thêm 1 lần nữa ở đây là dư, tốn thêm ~800ms-1s mỗi lần chuyển trang.
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
+  const user = session?.user ?? null;
 
   // Define public routes that don't require authentication
   const publicRoutes = ["/login", "/forgot-password", "/reset-password", "/api/migrate-db", "/api/seed", "/api/public"];

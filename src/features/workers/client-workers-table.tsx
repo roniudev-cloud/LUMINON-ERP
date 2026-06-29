@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { WorkerDialog } from "./worker-form-dialog";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
+import { MobileEntityCard, MobileEntityCardList } from "@/components/shared/mobile-entity-card";
 import { deleteWorker } from "@/actions/workers";
 import { toast } from "sonner";
 import { formatNumber } from "@/lib/utils";
@@ -62,12 +63,12 @@ export function ClientWorkersTable({ data }: { data: any[] }) {
 
   return (
     <>
-      <div className="p-4 border-b flex justify-between items-center bg-card">
+      <div className="p-4 border-b flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between bg-card">
         <h3 className="font-semibold text-lg">Danh sách nhân công</h3>
-        <Button onClick={handleCreate}>+ Thêm nhân công</Button>
+        <Button onClick={handleCreate} className="self-start sm:self-auto">+ Thêm nhân công</Button>
       </div>
       
-      <div className="overflow-x-auto bg-card">
+      <div className="hidden md:block overflow-x-auto bg-card">
         <Table>
           <TableHeader>
             <TableRow>
@@ -136,6 +137,53 @@ export function ClientWorkersTable({ data }: { data: any[] }) {
           </TableBody>
         </Table>
       </div>
+
+      <MobileEntityCardList empty={data.length === 0}>
+        {data.map((worker) => (
+          <MobileEntityCard
+            key={worker.id}
+            title={<Link href={`/workers/${worker.id}`} className="hover:underline hover:text-primary">{worker.name}</Link>}
+            subtitle={worker.code}
+            actions={
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="h-8 w-8 p-0" onClick={(e) => e.stopPropagation()}>
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem asChild>
+                    <Link href={`/workers/${worker.id}`}><Eye className="mr-2 h-4 w-4" /> Xem chi tiết</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleEdit(worker)}>
+                    <Pencil className="mr-2 h-4 w-4" /> Cập nhật
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleDelete(worker)} className="text-destructive focus:bg-destructive/10">
+                    <Trash2 className="mr-2 h-4 w-4" /> Xóa
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            }
+            fields={[
+              { label: "Số điện thoại", value: worker.phone || "—" },
+              { label: "Chuyên môn", value: worker.role?.name || "Chưa phân loại" },
+              { label: "Lương/Ngày", value: `${formatNumber(worker.dailyRate)} đ` },
+              {
+                label: "Trạng thái",
+                value: worker.isActive ? (
+                  <span className="inline-flex items-center text-green-600 bg-green-50 px-2 py-1 rounded-full text-xs font-medium">
+                    <CheckCircle2 className="w-3 h-3 mr-1" /> Đang làm việc
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center text-slate-500 bg-slate-100 px-2 py-1 rounded-full text-xs font-medium">
+                    <XCircle className="w-3 h-3 mr-1" /> Đã nghỉ
+                  </span>
+                ),
+              },
+            ]}
+          />
+        ))}
+      </MobileEntityCardList>
 
       <WorkerDialog
         open={isDialogOpen}

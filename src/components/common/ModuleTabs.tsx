@@ -31,9 +31,13 @@ export function ModuleTabs({ tabs, defaultTab, className }: ModuleTabsProps) {
 
   return (
     <Tabs value={activeTab} onValueChange={handleTabChange} className={className}>
-      <TabsList className="w-full justify-start">
+      <TabsList className="w-full flex overflow-x-auto scrollbar-hide justify-start border-b rounded-none bg-transparent p-0 pb-px mb-4">
         {tabs.map((tab) => (
-          <TabsTrigger key={tab.id} value={tab.id} className="flex-1 sm:flex-none">
+          <TabsTrigger 
+            key={tab.id} 
+            value={tab.id} 
+            className="flex-none whitespace-nowrap px-4 py-2 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+          >
             {tab.label}
           </TabsTrigger>
         ))}

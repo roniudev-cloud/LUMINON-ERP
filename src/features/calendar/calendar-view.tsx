@@ -28,6 +28,16 @@ const TYPE_COLORS: Record<CalendarEventType, string> = {
   customer_debt_due: "bg-red-100 text-red-700",
 };
 
+const TYPE_DOT_COLORS: Record<CalendarEventType, string> = {
+  task: "bg-blue-500",
+  quotation_expiry: "bg-purple-500",
+  contract_sign: "bg-indigo-500",
+  contract_payment_term: "bg-orange-500",
+  project_start: "bg-cyan-500",
+  project_end: "bg-teal-500",
+  customer_debt_due: "bg-red-500",
+};
+
 interface CalendarViewProps {
   year: number;
   month: number; // 1-12
@@ -65,8 +75,8 @@ export function CalendarView({ year, month, events }: CalendarViewProps) {
   const weekDayLabels = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
-      <div className="border rounded-xl bg-card shadow-sm overflow-hidden">
+    <div className="grid gap-6 lg:grid-cols-[1fr_320px] min-w-0">
+      <div className="border rounded-xl bg-card shadow-sm overflow-hidden min-w-0">
         <div className="flex items-center justify-between p-4 border-b">
           <h3 className="font-semibold text-lg capitalize">
             {format(current, "MMMM yyyy", { locale: vi })}
@@ -81,11 +91,13 @@ export function CalendarView({ year, month, events }: CalendarViewProps) {
           </div>
         </div>
 
-        <div className="grid grid-cols-7 border-b text-center text-xs font-medium text-muted-foreground">
-          {weekDayLabels.map((d) => (
-            <div key={d} className="py-2">{d}</div>
-          ))}
-        </div>
+        <div className="overflow-x-auto">
+          <div className="min-w-[800px] sm:min-w-0">
+            <div className="grid grid-cols-7 border-b text-center text-xs font-medium text-muted-foreground">
+              {weekDayLabels.map((d) => (
+                <div key={d} className="py-2">{d}</div>
+              ))}
+            </div>
 
         <div className="grid grid-cols-7">
           {days.map((d) => {
@@ -98,19 +110,33 @@ export function CalendarView({ year, month, events }: CalendarViewProps) {
               <div
                 key={dateKey}
                 className={cn(
-                  "min-h-[96px] border-b border-r p-1.5 align-top",
+                  "min-h-[52px] sm:min-h-[96px] border-b border-r p-1 sm:p-1.5 align-top overflow-hidden",
                   !inMonth && "bg-muted/30 text-muted-foreground"
                 )}
               >
                 <div
                   className={cn(
-                    "inline-flex h-6 w-6 items-center justify-center rounded-full text-xs mb-1",
+                    "inline-flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full text-[11px] sm:text-xs mb-1",
                     isToday && "bg-primary text-primary-foreground font-semibold"
                   )}
                 >
                   {d.getDate()}
                 </div>
-                <div className="space-y-0.5">
+
+                {/* Mobile: chỉ hiện chấm màu theo loại sự kiện, xem chi tiết ở danh sách "Sự kiện trong tháng" dưới */}
+                {dayEvents.length > 0 && (
+                  <div className="flex flex-wrap gap-0.5 sm:hidden">
+                    {dayEvents.slice(0, 4).map((e) => (
+                      <span
+                        key={e.id}
+                        className={cn("h-1.5 w-1.5 rounded-full", TYPE_DOT_COLORS[e.type])}
+                      />
+                    ))}
+                  </div>
+                )}
+
+                {/* Desktop/tablet: hiện tiêu đề sự kiện đầy đủ */}
+                <div className="hidden sm:block space-y-0.5">
                   {dayEvents.slice(0, 3).map((e) => (
                     <Link
                       key={e.id}
@@ -131,10 +157,12 @@ export function CalendarView({ year, month, events }: CalendarViewProps) {
               </div>
             );
           })}
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="border rounded-xl bg-card shadow-sm p-4 space-y-3 h-fit">
+      <div className="border rounded-xl bg-card shadow-sm p-4 space-y-3 h-fit min-w-0">
         <h3 className="font-semibold">Sự kiện trong tháng ({events.length})</h3>
         {events.length === 0 ? (
           <p className="text-sm text-muted-foreground">Không có mốc thời gian nào trong tháng này.</p>

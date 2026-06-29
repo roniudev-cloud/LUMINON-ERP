@@ -95,7 +95,7 @@ export function ContractDetail({ contract, canEdit, canConvert }: { contract: an
               <CardTitle>Thông tin chung</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <p className="text-muted-foreground mb-1">Khách hàng</p>
                   <p className="font-medium">{contract.customer.name}</p>
@@ -292,7 +292,7 @@ export function ContractDetail({ contract, canEdit, canConvert }: { contract: an
         {/* Thông tin Bên A */}
         <div className="space-y-1">
           <p className="font-bold text-gray-800 uppercase text-xs">BÊN A: CHỦ ĐẦU TƯ (BÊN GIAO THẦU)</p>
-          <div className="grid grid-cols-2 gap-x-6 gap-y-1 pl-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 pl-4">
             <p><span className="font-semibold">Tên đơn vị / Khách hàng:</span> {contract.customer.name}</p>
             <p><span className="font-semibold">Người đại diện:</span> {contract.customer.contactPerson || contract.customer.name}</p>
             <p><span className="font-semibold">Số điện thoại:</span> {contract.customer.phone || "—"}</p>
@@ -304,7 +304,7 @@ export function ContractDetail({ contract, canEdit, canConvert }: { contract: an
         {/* Thông tin Bên B */}
         <div className="space-y-1">
           <p className="font-bold text-gray-800 uppercase text-xs">BÊN B: ĐƠN VỊ THI CÔNG (BÊN NHẬN THẦU)</p>
-          <div className="grid grid-cols-2 gap-x-6 gap-y-1 pl-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 pl-4">
             <p><span className="font-semibold">Tên đơn vị:</span> CÔNG TY CỔ PHẦN NỘI THẤT LUMINON</p>
             <p><span className="font-semibold">Đại diện pháp luật:</span> Nguyễn Quản Trị</p>
             <p><span className="font-semibold">Chức vụ:</span> Giám Đốc</p>
@@ -412,7 +412,7 @@ export function ContractDetail({ contract, canEdit, canConvert }: { contract: an
         )}
 
         {/* Ký tên các bên kèm chữ ký số */}
-        <div className="grid grid-cols-2 pt-10 text-center gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 pt-10 text-center gap-6 sm:gap-10">
           <div className="space-y-6">
             <div>
               <p className="font-bold text-gray-700 text-xs uppercase tracking-wider">ĐẠI DIỆN KHÁCH HÀNG (BÊN A)</p>

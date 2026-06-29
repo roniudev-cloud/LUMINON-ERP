@@ -13,6 +13,7 @@ import { StatusBadge } from "@/components/shared/status-badge";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { Button } from "@/components/ui/button";
 import { Trash2, PenTool } from "lucide-react";
+import { MobileEntityCard } from "@/components/shared/mobile-entity-card";
 import { formatDate, formatVND } from "@/lib/utils";
 import { signLiquidationReport, deleteLiquidationReport } from "@/actions/documents";
 import { toast } from "sonner";
@@ -60,7 +61,7 @@ export function ClientLiquidationReportsTable({ data }: { data: any[] }) {
 
   return (
     <>
-      <Table>
+      <Table className="hidden md:table">
         <TableHeader>
           <TableRow>
             <TableHead>Mã BB</TableHead>
@@ -97,6 +98,34 @@ export function ClientLiquidationReportsTable({ data }: { data: any[] }) {
           ))}
         </TableBody>
       </Table>
+
+      <div className="md:hidden space-y-3">
+        {data.map((r) => (
+          <MobileEntityCard
+            key={r.id}
+            title={r.code}
+            subtitle={`${r.project?.name} (${r.project?.code})`}
+            actions={
+              <div className="flex gap-1">
+                {r.status !== "signed" && (
+                  <Button size="icon" variant="outline" disabled={signingId === r.id} onClick={(e) => { e.stopPropagation(); handleSign(r.id); }}>
+                    <PenTool className="h-3.5 w-3.5" />
+                  </Button>
+                )}
+                <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); openDelete(r); }}>
+                  <Trash2 className="h-4 w-4 text-destructive" />
+                </Button>
+              </div>
+            }
+            fields={[
+              { label: "Hợp đồng", value: r.contract?.code || "—" },
+              { label: "Giá trị thanh lý", value: formatVND(r.finalAmount) },
+              { label: "Trạng thái", value: <StatusBadge status={r.status} /> },
+              { label: "Ngày tạo", value: formatDate(r.createdAt) },
+            ]}
+          />
+        ))}
+      </div>
 
       <ConfirmDialog
         open={isDeleteOpen}

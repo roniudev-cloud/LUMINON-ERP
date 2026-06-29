@@ -311,7 +311,7 @@ export function ContractForm({ initialData, customers, quotations = [] }: Contra
 
         <FormSection title="Hạng mục hợp đồng" description="Danh sách các hạng mục sản phẩm/dịch vụ." className="md:grid-cols-1">
           <div className="rounded-xl border overflow-hidden">
-            <div className="grid grid-cols-12 gap-2 bg-muted p-4 text-sm font-medium">
+            <div className="hidden md:grid grid-cols-12 gap-2 bg-muted p-4 text-sm font-medium">
               <div className="col-span-4">Tên hạng mục</div>
               <div className="col-span-1">ĐVT</div>
               <div className="col-span-1">SL</div>
@@ -319,11 +319,11 @@ export function ContractForm({ initialData, customers, quotations = [] }: Contra
               <div className="col-span-3">Thành tiền</div>
               <div className="col-span-1 text-right">Xóa</div>
             </div>
-            
+
             <div className="p-4 space-y-4">
               {itemFields.map((field, index) => (
-                <div key={field.id} className="grid grid-cols-12 gap-2 items-start">
-                  <div className="col-span-4 space-y-2">
+                <div key={field.id} className="grid grid-cols-2 md:grid-cols-12 gap-3 md:gap-2 md:items-start rounded-lg border p-3 md:border-0 md:p-0">
+                  <div className="col-span-2 md:col-span-4 space-y-2">
                     <FormField
                       control={form.control}
                       name={`items.${index}.name`}
@@ -340,22 +340,26 @@ export function ContractForm({ initialData, customers, quotations = [] }: Contra
                     />
                   </div>
                   <div className="col-span-1">
+                    <FormLabel className="md:hidden text-xs text-muted-foreground mb-1.5 block">ĐVT</FormLabel>
                     <FormField control={form.control} name={`items.${index}.unit`} render={({ field }: { field: any }) => (<FormItem><FormControl><Input {...field} /></FormControl></FormItem>)} />
                   </div>
                   <div className="col-span-1">
+                    <FormLabel className="md:hidden text-xs text-muted-foreground mb-1.5 block">SL</FormLabel>
                     <FormField control={form.control} name={`items.${index}.quantity`} render={({ field }: { field: any }) => (<FormItem><FormControl><Input type="number" step="0.01" {...field} /></FormControl></FormItem>)} />
                   </div>
-                  <div className="col-span-2">
+                  <div className="col-span-1 md:col-span-2">
+                    <FormLabel className="md:hidden text-xs text-muted-foreground mb-1.5 block">Đơn giá</FormLabel>
                     <FormField control={form.control} name={`items.${index}.unitPrice`} render={({ field }: { field: any }) => (<FormItem><FormControl><Input type="number" step="1000" {...field} /></FormControl></FormItem>)} />
                   </div>
-                  <div className="col-span-3">
+                  <div className="col-span-1 md:col-span-3">
+                    <FormLabel className="md:hidden text-xs text-muted-foreground mb-1.5 block">Thành tiền</FormLabel>
                     <div className="h-10 px-3 py-2 border rounded-md bg-muted/30 flex items-center justify-end font-medium">
                       {formatVND(form.watch(`items.${index}.amount`))}
                     </div>
                   </div>
-                  <div className="col-span-1 flex justify-end">
-                    <Button type="button" variant="ghost" size="icon" className="text-destructive hover:bg-destructive/10" onClick={() => removeItem(index)} disabled={itemFields.length === 1}>
-                      <Trash2 className="h-4 w-4" />
+                  <div className="col-span-2 md:col-span-1 flex justify-end">
+                    <Button type="button" variant="ghost" size="sm" className="text-destructive hover:bg-destructive/10 md:h-9 md:w-9 md:p-0" onClick={() => removeItem(index)} disabled={itemFields.length === 1}>
+                      <Trash2 className="h-4 w-4 md:mr-0 mr-2" /> <span className="md:hidden">Xóa hạng mục</span>
                     </Button>
                   </div>
                 </div>
@@ -386,22 +390,22 @@ export function ContractForm({ initialData, customers, quotations = [] }: Contra
         <FormSection title="Tiến độ thanh toán" description="Chia đợt thu tiền cho hợp đồng.">
           <div className="space-y-4 md:col-span-2">
             {termFields.map((field, index) => (
-              <div key={field.id} className="grid grid-cols-12 gap-3 items-center border p-3 rounded-lg bg-card">
-                <div className="col-span-3">
+              <div key={field.id} className="grid grid-cols-2 md:grid-cols-12 gap-3 md:items-center border p-3 rounded-lg bg-card">
+                <div className="col-span-2 md:col-span-3">
                   <FormField control={form.control} name={`paymentTerms.${index}.name`} render={({ field }: { field: any }) => (<FormItem><FormLabel className="text-xs">Tên đợt</FormLabel><FormControl><Input className="h-8" {...field} /></FormControl></FormItem>)} />
                 </div>
-                <div className="col-span-2">
+                <div className="col-span-1 md:col-span-2">
                   <FormField control={form.control} name={`paymentTerms.${index}.percentage`} render={({ field }: { field: any }) => (<FormItem><FormLabel className="text-xs">Tỷ lệ (%)</FormLabel><FormControl><Input type="number" className="h-8" {...field} value={field.value || ""} /></FormControl></FormItem>)} />
                 </div>
-                <div className="col-span-3">
+                <div className="col-span-1 md:col-span-3">
                   <FormField control={form.control} name={`paymentTerms.${index}.amount`} render={({ field }: { field: any }) => (<FormItem><FormLabel className="text-xs">Số tiền</FormLabel><FormControl><Input type="number" className="h-8" {...field} /></FormControl></FormItem>)} />
                 </div>
-                <div className="col-span-3">
+                <div className="col-span-2 md:col-span-3">
                   <FormField control={form.control} name={`paymentTerms.${index}.dueDate`} render={({ field }: { field: any }) => (<FormItem><FormLabel className="text-xs">Ngày dự kiến</FormLabel><FormControl><Input type="date" className="h-8" {...field} value={field.value || ""} /></FormControl></FormItem>)} />
                 </div>
-                <div className="col-span-1 pt-6 text-right">
-                  <Button type="button" variant="ghost" size="icon" className="text-destructive hover:bg-destructive/10 h-8 w-8" onClick={() => removeTerm(index)}>
-                    <Trash2 className="h-4 w-4" />
+                <div className="col-span-2 md:col-span-1 md:pt-6 text-right">
+                  <Button type="button" variant="ghost" size="sm" className="text-destructive hover:bg-destructive/10 h-8 md:w-8" onClick={() => removeTerm(index)}>
+                    <Trash2 className="h-4 w-4 md:mr-0 mr-2" /> <span className="md:hidden">Xóa đợt thanh toán</span>
                   </Button>
                 </div>
               </div>

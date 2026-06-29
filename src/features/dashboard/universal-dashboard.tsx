@@ -52,7 +52,7 @@ export function UniversalDashboard({ data, userRoles }: DashboardProps) {
       {(isAdmin || isManager || isSales) && (
         <>
           <h2 className="text-lg font-semibold tracking-tight text-foreground/80 mt-2">Kinh doanh</h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <StatCard
               title="Tổng khách hàng"
               value={stats.totalCustomers?.toString() || "0"}
@@ -102,7 +102,7 @@ export function UniversalDashboard({ data, userRoles }: DashboardProps) {
       {(isAdmin || isManager || isAccountant) && (
         <>
           <h2 className="text-lg font-semibold tracking-tight text-foreground/80 mt-6">Tài chính</h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <StatCard
               title="Tổng đã thu"
               value={formatCurrencyVND(stats.totalReceipts)}
@@ -219,7 +219,7 @@ export function UniversalDashboard({ data, userRoles }: DashboardProps) {
       {(isAdmin || isManager || userRoles.includes("warehouse_staff")) && (
         <>
           <h2 className="text-lg font-semibold tracking-tight text-foreground/80 mt-6">Kho</h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             <StatCard
               title="Tổng vật tư"
               value={stats.totalMaterials?.toString() || "0"}

@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { StatusBadge } from "@/components/shared/status-badge";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
+import { MobileEntityCard, MobileEntityCardList } from "@/components/shared/mobile-entity-card";
 import { SupplierDialog } from "./supplier-form-dialog";
 import { deleteSupplier } from "@/actions/suppliers";
 import { toast } from "sonner";
@@ -72,12 +73,12 @@ export function ClientSuppliersTable({ data }: { data: any[] }) {
     <>
       <div className="p-4 border-b flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between bg-card">
         <h3 className="font-semibold text-lg">Danh sách nhà cung cấp</h3>
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <div className="relative">
             <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="Tìm nhà cung cấp..."
-              className="pl-8 w-56"
+              className="pl-8 w-full sm:w-56"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -86,7 +87,7 @@ export function ClientSuppliersTable({ data }: { data: any[] }) {
         </div>
       </div>
 
-      <div className="overflow-x-auto bg-card">
+      <div className="hidden md:block overflow-x-auto bg-card">
         <Table>
           <TableHeader>
             <TableRow>
@@ -147,6 +148,39 @@ export function ClientSuppliersTable({ data }: { data: any[] }) {
           </TableBody>
         </Table>
       </div>
+
+      <MobileEntityCardList empty={filtered.length === 0}>
+        {filtered.map((supplier) => (
+          <MobileEntityCard
+            key={supplier.id}
+            title={supplier.name}
+            subtitle={supplier.code}
+            actions={
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="h-8 w-8 p-0" onClick={(e) => e.stopPropagation()}>
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => handleEdit(supplier)}>
+                    <Pencil className="mr-2 h-4 w-4" /> Cập nhật
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleDeleteClick(supplier)} className="text-destructive focus:bg-destructive/10">
+                    <Trash2 className="mr-2 h-4 w-4" /> Xóa
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            }
+            fields={[
+              { label: "Nhóm", value: <StatusBadge status={supplier.category} /> },
+              { label: "Liên hệ", value: supplier.contactPerson || "—" },
+              { label: "SĐT", value: supplier.phone || "—" },
+              { label: "Trạng thái", value: <StatusBadge status={supplier.status} /> },
+            ]}
+          />
+        ))}
+      </MobileEntityCardList>
 
       <SupplierDialog open={isDialogOpen} onOpenChange={setIsDialogOpen} supplier={selectedSupplier} />
 
