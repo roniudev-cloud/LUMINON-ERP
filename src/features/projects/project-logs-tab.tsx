@@ -48,7 +48,7 @@ export function ProjectLogsTab({ project, logs }: { project: any; logs: any[] })
           <DialogTrigger asChild>
             <Button><Plus className="h-4 w-4 mr-2" /> Thêm nhật ký</Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px]">
+          <DialogContent className="sm:max-w-2xl">
             <DialogHeader>
               <DialogTitle>Thêm nhật ký mới</DialogTitle>
             </DialogHeader>

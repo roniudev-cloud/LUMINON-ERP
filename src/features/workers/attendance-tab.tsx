@@ -85,7 +85,7 @@ export function AttendanceTab({ workerId, attendances, projects }: { workerId: s
           <DialogTrigger asChild>
             <Button size="sm"><Plus className="mr-2 h-4 w-4" /> Chấm công</Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-md">
+          <DialogContent className="sm:max-w-lg">
             <DialogHeader><DialogTitle>Chấm công</DialogTitle></DialogHeader>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

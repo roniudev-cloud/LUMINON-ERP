@@ -51,7 +51,7 @@ export function RoleFormDialog() {
       <DialogTrigger asChild>
         <Button><Plus className="mr-2 h-4 w-4" /> Tạo vai trò</Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>Tạo vai trò mới</DialogTitle>
           <DialogDescription>Sau khi tạo, hãy gán quyền hạn cho vai trò này.</DialogDescription>

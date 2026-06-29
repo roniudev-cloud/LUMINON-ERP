@@ -80,7 +80,7 @@ export function ProjectTasksTab({ project, tasks, users }: { project: any; tasks
           <DialogTrigger asChild>
             <Button><Plus className="h-4 w-4 mr-2" /> Giao việc mới</Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="sm:max-w-2xl">
             <DialogHeader>
               <DialogTitle>Giao công việc thi công</DialogTitle>
             </DialogHeader>

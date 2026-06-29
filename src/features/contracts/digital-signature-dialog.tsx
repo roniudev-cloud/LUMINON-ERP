@@ -140,7 +140,7 @@ export function DigitalSignatureDialog({ contractId }: DigitalSignatureDialogPro
           <PenTool className="mr-2 h-4 w-4" /> Ký điện tử
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Ký điện tử hợp đồng</DialogTitle>
           <DialogDescription>

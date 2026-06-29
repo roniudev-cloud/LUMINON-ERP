@@ -71,7 +71,7 @@ export function AdvancesTab({ workerId, advances }: { workerId: string; advances
           <DialogTrigger asChild>
             <Button size="sm"><Plus className="mr-2 h-4 w-4" /> Ghi ứng lương</Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-md">
+          <DialogContent className="sm:max-w-lg">
             <DialogHeader><DialogTitle>Ghi ứng lương</DialogTitle></DialogHeader>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
