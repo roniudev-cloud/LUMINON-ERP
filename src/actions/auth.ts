@@ -47,9 +47,9 @@ export const getCurrentUser = cache(async function getCurrentUser(): Promise<Cur
         },
       }),
     ]);
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database error when fetching user profile:", error);
-    return null;
+    throw new Error("Lỗi kết nối Database (Supabase IPv6). Vercel không kết nối được tới Database của bạn. Chi tiết lỗi: " + error.message);
   }
 
   // Auto-sync: if auth user exists but public.users doesn't, create it
